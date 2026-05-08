@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tickets>
+  <ticket>
+    <customer_id>CUST-101</customer_id>
+    <customer_email>john.smith@example.com</customer_email>
+    <customer_name>John Smith</customer_name>
+    <subject>Ticket missing description element</subject>
+    <category>account_access</category>
+    <priority>medium</priority>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-102</customer_id>
+    <customer_email>not-a-valid-email</customer_email>
+    <customer_name>Jane Doe</customer_name>
+    <subject>Ticket with malformed email address</subject>
+    <description>This ticket contains a customer email that does not conform to valid email address format and should fail validation checks.</description>
+    <category>billing_question</category>
+    <priority>low</priority>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-103</customer_id>
+    <customer_email>mark.wilson@example.com</customer_email>
+    <customer_name>Mark Wilson</customer_name>
+    <subject>Ticket with invalid priority enumeration value</subject>
+    <description>This ticket specifies a priority value of critical which is not in the set of allowed values: urgent, high, medium, or low.</description>
+    <category>technical_issue</category>
+    <priority>critical</priority>
+  </ticket>
+</tickets>

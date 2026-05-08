@@ -1,0 +1,27 @@
+[
+  {
+    "customer_id": "CUST-101",
+    "customer_name": "John Smith",
+    "subject": "Missing required fields in this ticket",
+    "description": "This ticket object is missing the customer_email and category fields which are both required.",
+    "priority": "medium"
+  },
+  {
+    "customer_id": "CUST-102",
+    "customer_email": "this-is-not-an-email",
+    "customer_name": "Jane Doe",
+    "subject": "Invalid email address format",
+    "description": "The customer_email field contains a value that does not conform to a valid email address format and should fail validation.",
+    "category": "billing_question",
+    "priority": "low"
+  },
+  {
+    "customer_id": "CUST-103",
+    "customer_email": "mark.wilson@example.com",
+    "customer_name": "Mark Wilson",
+    "subject": "Ticket with invalid enum values for category and priority",
+    "description": "This ticket uses invalid enumeration values for the category and priority fields which are not in the allowed value sets.",
+    "category": "general_inquiry",
+    "priority": "super_urgent"
+  }
+]

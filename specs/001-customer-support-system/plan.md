@@ -65,8 +65,7 @@ homework-2/
 │   │   ├── database.py      # SQLite connection & initialization
 │   │   └── repository.py    # Data access layer
 │   └── utils/
-│       ├── __init__.py
-│       └── validators.py    # Shared validation helpers
+│       └── __init__.py
 ├── tests/
 │   ├── __init__.py
 │   ├── conftest.py          # Shared fixtures, test client setup
@@ -92,8 +91,6 @@ homework-2/
 │   ├── API_REFERENCE.md
 │   ├── ARCHITECTURE.md
 │   └── TESTING_GUIDE.md
-├── demo/
-│   └── .gitkeep
 ├── requirements.txt
 ├── requirements-dev.txt
 ├── pyproject.toml

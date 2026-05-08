@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tickets>
+  <ticket>
+    <customer_id>CUST-001</customer_id>
+    <customer_email>alice.martin@gmail.com</customer_email>
+    <customer_name>Alice Martin</customer_name>
+    <subject>Cannot log in to my account</subject>
+    <description>I have been trying to log in for two hours but keep getting an invalid password error even after resetting my password twice.</description>
+    <category>account_access</category>
+    <priority>urgent</priority>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-002</customer_id>
+    <customer_email>bob.johnson@hotmail.com</customer_email>
+    <customer_name>Bob Johnson</customer_name>
+    <subject>Invoice shows wrong amount this month</subject>
+    <description>My latest invoice shows $149 but I was quoted $99 per month when I signed up. Please review and correct this discrepancy.</description>
+    <category>billing_question</category>
+    <priority>high</priority>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-003</customer_id>
+    <customer_email>carol.white@yahoo.com</customer_email>
+    <customer_name>Carol White</customer_name>
+    <subject>Mobile app crashes immediately on startup</subject>
+    <description>Every time I open the mobile app on my iPhone it crashes within 3 seconds. This started after installing the latest update yesterday.</description>
+    <category>bug_report</category>
+    <priority>urgent</priority>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-004</customer_id>
+    <customer_email>david.brown@outlook.com</customer_email>
+    <customer_name>David Brown</customer_name>
+    <subject>Feature request for dark mode</subject>
+    <description>Please add a dark mode option in the dashboard settings. It would reduce eye strain significantly for users working late at night.</description>
+    <category>feature_request</category>
+    <priority>low</priority>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-005</customer_id>
+    <customer_email>emily.davis@gmail.com</customer_email>
+    <customer_name>Emily Davis</customer_name>
+    <subject>Two-factor authentication code not arriving</subject>
+    <description>The SMS verification code for two-factor authentication never arrives on my phone. I have confirmed the number is correct in my profile settings.</description>
+    <category>account_access</category>
+    <priority>high</priority>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-006</customer_id>
+    <customer_email>frank.miller@company.com</customer_email>
+    <customer_name>Frank Miller</customer_name>
+    <subject>CSV export fails for large record sets</subject>
+    <description>Exporting more than 10000 records results in a server timeout. Smaller exports under 1000 records complete successfully without errors.</description>
+    <category>technical_issue</category>
+    <priority>high</priority>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-007</customer_id>
+    <customer_email>grace.wilson@email.net</customer_email>
+    <customer_name>Grace Wilson</customer_name>
+    <subject>Accidental upgrade charge needs refund</subject>
+    <description>I accidentally clicked the upgrade button and was immediately charged $200. I did not intend to upgrade and need a full refund processed right away.</description>
+    <category>billing_question</category>
+    <priority>urgent</priority>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-008</customer_id>
+    <customer_email>henry.moore@gmail.com</customer_email>
+    <customer_name>Henry Moore</customer_name>
+    <subject>Add keyboard shortcuts for common actions</subject>
+    <description>Keyboard shortcuts for actions like save, search, and navigate would significantly speed up workflows for power users of the platform.</description>
+    <category>feature_request</category>
+    <priority>low</priority>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-009</customer_id>
+    <customer_email>irene.taylor@hotmail.com</customer_email>
+    <customer_name>Irene Taylor</customer_name>
+    <subject>Password reset email not received</subject>
+    <description>I requested a password reset 45 minutes ago and the email has still not arrived. I have checked both my inbox and spam folder thoroughly.</description>
+    <category>account_access</category>
+    <priority>medium</priority>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-010</customer_id>
+    <customer_email>james.anderson@work.org</customer_email>
+    <customer_name>James Anderson</customer_name>
+    <subject>Dashboard charts stuck in loading state</subject>
+    <description>The analytics charts on the main dashboard display an infinite loading spinner. The issue persists across multiple browsers and network connections.</description>
+    <category>technical_issue</category>
+    <priority>medium</priority>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-011</customer_id>
+    <customer_email>karen.thomas@gmail.com</customer_email>
+    <customer_name>Karen Thomas</customer_name>
+    <subject>Duplicate charge on subscription this month</subject>
+    <description>My credit card statement shows two identical charges of $49 for my subscription this month. Please investigate and refund the duplicate payment.</description>
+    <category>billing_question</category>
+    <priority>urgent</priority>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-012</customer_id>
+    <customer_email>liam.jackson@icloud.com</customer_email>
+    <customer_name>Liam Jackson</customer_name>
+    <subject>API rate limit too low for our integration</subject>
+    <description>The current limit of 100 requests per minute is insufficient for our production workload. We need at least 1000 RPM to operate reliably.</description>
+    <category>feature_request</category>
+    <priority>medium</priority>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-013</customer_id>
+    <customer_email>mia.white@startup.io</customer_email>
+    <customer_name>Mia White</customer_name>
+    <subject>Search returning outdated results</subject>
+    <description>Search results consistently show records from three months ago. Clearing browser cache and hard refreshing the page does not fix the issue.</description>
+    <category>bug_report</category>
+    <priority>high</priority>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-014</customer_id>
+    <customer_email>noah.harris@gmail.com</customer_email>
+    <customer_name>Noah Harris</customer_name>
+    <subject>Cannot add new team member to workspace</subject>
+    <description>When inviting a colleague by email address the system returns an error saying the email is already in use, but they have never created an account.</description>
+    <category>technical_issue</category>
+    <priority>medium</priority>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-015</customer_id>
+    <customer_email>olivia.martin@yahoo.com</customer_email>
+    <customer_name>Olivia Martin</customer_name>
+    <subject>Permission denied on admin reports page</subject>
+    <description>I receive a permission denied error whenever I navigate to the sales reports section despite having administrator privileges on the account.</description>
+    <category>account_access</category>
+    <priority>high</priority>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-016</customer_id>
+    <customer_email>peter.garcia@outlook.com</customer_email>
+    <customer_name>Peter Garcia</customer_name>
+    <subject>Save button not working in Firefox</subject>
+    <description>The save button on the profile settings page is completely unresponsive in Firefox. The same page works correctly in Chrome and Edge browsers.</description>
+    <category>bug_report</category>
+    <priority>high</priority>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-017</customer_id>
+    <customer_email>quinn.rodriguez@company.co</customer_email>
+    <customer_name>Quinn Rodriguez</customer_name>
+    <subject>Notification emails landing in spam folder</subject>
+    <description>All automated notification emails from your service are being delivered to spam. Adding the address to the whitelist has not resolved the issue.</description>
+    <category>technical_issue</category>
+    <priority>medium</priority>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-018</customer_id>
+    <customer_email>rachel.lewis@gmail.com</customer_email>
+    <customer_name>Rachel Lewis</customer_name>
+    <subject>Account locked after multiple failed login attempts</subject>
+    <description>My account was locked after 5 failed login attempts when I mistyped my password. I need it unlocked immediately to access my work data.</description>
+    <category>account_access</category>
+    <priority>urgent</priority>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-019</customer_id>
+    <customer_email>samuel.lee@techcorp.com</customer_email>
+    <customer_name>Samuel Lee</customer_name>
+    <subject>Report generation taking 15 or more minutes</subject>
+    <description>Monthly summary reports now take over 15 minutes to generate. The same reports completed in under 2 minutes last month with the same data volume.</description>
+    <category>technical_issue</category>
+    <priority>high</priority>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-020</customer_id>
+    <customer_email>tina.walker@gmail.com</customer_email>
+    <customer_name>Tina Walker</customer_name>
+    <subject>Wrong currency displayed in billing section</subject>
+    <description>My account is configured for USD but all billing pages display amounts in EUR. This is causing confusion for our finance team during reconciliation.</description>
+    <category>billing_question</category>
+    <priority>medium</priority>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-021</customer_id>
+    <customer_email>uri.hall@personal.net</customer_email>
+    <customer_name>Uri Hall</customer_name>
+    <subject>Request offline mode for the mobile app</subject>
+    <description>An offline mode that caches data locally and syncs when the connection is restored would be very helpful for users with unreliable internet access.</description>
+    <category>feature_request</category>
+    <priority>low</priority>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-022</customer_id>
+    <customer_email>vera.allen@gmail.com</customer_email>
+    <customer_name>Vera Allen</customer_name>
+    <subject>Data not syncing between desktop and mobile</subject>
+    <description>Changes made on my desktop computer are not appearing on my mobile device even after waiting several hours and manually triggering a sync.</description>
+    <category>technical_issue</category>
+    <priority>high</priority>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-023</customer_id>
+    <customer_email>will.young@business.com</customer_email>
+    <customer_name>Will Young</customer_name>
+    <subject>Promo code SAVE20 not applying discount</subject>
+    <description>I entered the promotional code SAVE20 at checkout but the 20% discount was not reflected in the order total. The code was shown as valid.</description>
+    <category>billing_question</category>
+    <priority>medium</priority>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-024</customer_id>
+    <customer_email>xena.scott@hotmail.com</customer_email>
+    <customer_name>Xena Scott</customer_name>
+    <subject>Add bulk CSV import functionality</subject>
+    <description>Our team needs to import hundreds of user records at once from CSV files. Building this feature would save our administrators many hours of manual data entry.</description>
+    <category>feature_request</category>
+    <priority>high</priority>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-025</customer_id>
+    <customer_email>yale.green@startup.net</customer_email>
+    <customer_name>Yale Green</customer_name>
+    <subject>Webhook not triggering for order events</subject>
+    <description>The webhook I configured for order created events is not receiving any POST requests. The endpoint URL is correct and accepts requests from other sources.</description>
+    <category>technical_issue</category>
+    <priority>high</priority>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-026</customer_id>
+    <customer_email>zara.adams@gmail.com</customer_email>
+    <customer_name>Zara Adams</customer_name>
+    <subject>Charged for subscription after cancellation</subject>
+    <description>I cancelled my account two weeks ago and received a confirmation email, but I was still charged for the new billing cycle. Please issue a full refund.</description>
+    <category>billing_question</category>
+    <priority>urgent</priority>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-027</customer_id>
+    <customer_email>aaron.baker@work.com</customer_email>
+    <customer_name>Aaron Baker</customer_name>
+    <subject>Mobile app causing excessive battery drain</subject>
+    <description>The mobile app drains my phone battery very rapidly even when running in the background with notifications disabled. Battery goes from 100 to 20 percent in 4 hours.</description>
+    <category>bug_report</category>
+    <priority>medium</priority>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-028</customer_id>
+    <customer_email>bella.carter@icloud.com</customer_email>
+    <customer_name>Bella Carter</customer_name>
+    <subject>SSO login failing for all organization users</subject>
+    <description>Single sign-on authentication has been failing for every user in our organization since yesterday morning. The IdP configuration has not changed.</description>
+    <category>account_access</category>
+    <priority>urgent</priority>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-029</customer_id>
+    <customer_email>carlos.diaz@company.mx</customer_email>
+    <customer_name>Carlos Diaz</customer_name>
+    <subject>Images broken in exported PDF reports</subject>
+    <description>Charts and images embedded in exported PDF reports appear as empty boxes. The data is present in the report but all visual elements are missing.</description>
+    <category>bug_report</category>
+    <priority>high</priority>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-030</customer_id>
+    <customer_email>diana.evans@gmail.com</customer_email>
+    <customer_name>Diana Evans</customer_name>
+    <subject>Duplicate contact records created during sync</subject>
+    <description>Every CRM sync creates duplicate contact entries in the system. After three syncs we now have three copies of every contact, making the data unusable.</description>
+    <category>bug_report</category>
+    <priority>high</priority>
+  </ticket>
+</tickets>

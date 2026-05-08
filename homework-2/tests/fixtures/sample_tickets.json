@@ -1,0 +1,212 @@
+[
+  {
+    "customer_id": "CUST-001",
+    "customer_email": "alice.martin@gmail.com",
+    "customer_name": "Alice Martin",
+    "subject": "Cannot log in to my account",
+    "description": "I have been trying to log in for the past two hours but keep getting an invalid password error even after resetting it.",
+    "category": "account_access",
+    "priority": "urgent",
+    "tags": ["login", "password"],
+    "metadata": {"source": "web_form", "browser": "Chrome"}
+  },
+  {
+    "customer_id": "CUST-002",
+    "customer_email": "bob.johnson@hotmail.com",
+    "customer_name": "Bob Johnson",
+    "subject": "Invoice shows wrong amount",
+    "description": "My latest invoice shows $149 but I was quoted $99 per month. Please review and correct this charge immediately.",
+    "category": "billing_question",
+    "priority": "high",
+    "tags": ["invoice", "billing"],
+    "metadata": {"source": "email"}
+  },
+  {
+    "customer_id": "CUST-003",
+    "customer_email": "carol.white@yahoo.com",
+    "customer_name": "Carol White",
+    "subject": "App crashes on startup after update",
+    "description": "Every time I open the mobile app it crashes within 3 seconds. This started happening after installing the latest update.",
+    "category": "bug_report",
+    "priority": "urgent",
+    "tags": ["crash", "mobile", "update"]
+  },
+  {
+    "customer_id": "CUST-004",
+    "customer_email": "david.brown@outlook.com",
+    "customer_name": "David Brown",
+    "subject": "Request for dark mode feature",
+    "description": "It would be great to have a dark mode option in the dashboard settings to reduce eye strain during late night work sessions.",
+    "category": "feature_request",
+    "priority": "low",
+    "tags": ["dark-mode", "ui", "accessibility"]
+  },
+  {
+    "customer_id": "CUST-005",
+    "customer_email": "emily.davis@gmail.com",
+    "customer_name": "Emily Davis",
+    "subject": "Two-factor authentication SMS not arriving",
+    "description": "The SMS code for two-factor authentication never arrives on my phone. I have verified my phone number is correct in account settings.",
+    "category": "account_access",
+    "priority": "high",
+    "tags": ["2fa", "sms"],
+    "metadata": {"source": "chat", "device": "mobile"}
+  },
+  {
+    "customer_id": "CUST-006",
+    "customer_email": "frank.miller@company.com",
+    "customer_name": "Frank Miller",
+    "subject": "Bulk CSV export fails for large datasets",
+    "description": "When exporting more than 10000 records to CSV the download starts but then fails with a server timeout error. Smaller exports work fine.",
+    "category": "technical_issue",
+    "priority": "high",
+    "tags": ["export", "csv", "performance"],
+    "metadata": {"source": "api"}
+  },
+  {
+    "customer_id": "CUST-007",
+    "customer_email": "grace.wilson@email.net",
+    "customer_name": "Grace Wilson",
+    "subject": "Accidental subscription upgrade needs refund",
+    "description": "I accidentally clicked the upgrade button and was charged $200. I did not intend to upgrade my plan. Please process a full refund.",
+    "category": "billing_question",
+    "priority": "urgent",
+    "tags": ["refund", "accidental-charge"]
+  },
+  {
+    "customer_id": "CUST-008",
+    "customer_email": "henry.moore@gmail.com",
+    "customer_name": "Henry Moore",
+    "subject": "Add keyboard shortcuts to improve workflow",
+    "description": "Adding keyboard shortcuts for the most common actions like save, search, and navigate would significantly improve productivity for power users.",
+    "category": "feature_request",
+    "priority": "low",
+    "tags": ["keyboard", "shortcuts", "productivity"]
+  },
+  {
+    "customer_id": "CUST-009",
+    "customer_email": "irene.taylor@hotmail.com",
+    "customer_name": "Irene Taylor",
+    "subject": "Password reset email not received",
+    "description": "I requested a password reset over 30 minutes ago and the email has not arrived. I have checked my spam folder with no results.",
+    "category": "account_access",
+    "priority": "medium",
+    "tags": ["password", "email-delivery"],
+    "metadata": {"source": "web_form", "browser": "Firefox"}
+  },
+  {
+    "customer_id": "CUST-010",
+    "customer_email": "james.anderson@work.org",
+    "customer_name": "James Anderson",
+    "subject": "Dashboard analytics charts not loading",
+    "description": "The analytics charts on the main dashboard display an endless loading spinner. All other pages and features work correctly.",
+    "category": "technical_issue",
+    "priority": "medium",
+    "tags": ["dashboard", "charts", "ui"],
+    "metadata": {"source": "chat", "browser": "Chrome"}
+  },
+  {
+    "customer_id": "CUST-011",
+    "customer_email": "karen.thomas@gmail.com",
+    "customer_name": "Karen Thomas",
+    "subject": "Double charged for monthly subscription",
+    "description": "My credit card was charged twice for my monthly subscription this billing cycle. Please investigate and issue a refund for the duplicate charge.",
+    "category": "billing_question",
+    "priority": "urgent",
+    "tags": ["double-charge", "refund"]
+  },
+  {
+    "customer_id": "CUST-012",
+    "customer_email": "liam.jackson@icloud.com",
+    "customer_name": "Liam Jackson",
+    "subject": "API rate limit too restrictive for integration",
+    "description": "The current rate limit of 100 requests per minute is insufficient for our high-volume integration. We need at least 1000 requests per minute.",
+    "category": "feature_request",
+    "priority": "medium",
+    "tags": ["api", "rate-limit", "enterprise"],
+    "metadata": {"source": "api"}
+  },
+  {
+    "customer_id": "CUST-013",
+    "customer_email": "mia.white@startup.io",
+    "customer_name": "Mia White",
+    "subject": "Search results showing stale data",
+    "description": "The search feature consistently returns results from months ago. Clearing the browser cache and refreshing the page does not resolve the issue.",
+    "category": "bug_report",
+    "priority": "high",
+    "tags": ["search", "cache", "stale-data"]
+  },
+  {
+    "customer_id": "CUST-014",
+    "customer_email": "noah.harris@gmail.com",
+    "customer_name": "Noah Harris",
+    "subject": "Cannot invite new team member to workspace",
+    "description": "Attempting to invite a colleague by email returns an error stating the email is already in use, but they do not have an existing account.",
+    "category": "technical_issue",
+    "priority": "medium",
+    "tags": ["team", "invite", "workspace"],
+    "metadata": {"source": "chat"}
+  },
+  {
+    "customer_id": "CUST-015",
+    "customer_email": "olivia.martin@yahoo.com",
+    "customer_name": "Olivia Martin",
+    "subject": "Permission denied accessing admin reports",
+    "description": "I receive a permission denied error when attempting to view sales reports despite being designated as a workspace administrator.",
+    "category": "account_access",
+    "priority": "high",
+    "tags": ["permissions", "admin", "reports"]
+  },
+  {
+    "customer_id": "CUST-016",
+    "customer_email": "peter.garcia@outlook.com",
+    "customer_name": "Peter Garcia",
+    "subject": "Save button unresponsive in Firefox browser",
+    "description": "The save button on the profile settings page does not respond to any clicks when using the Firefox browser. It works fine in Chrome and Edge.",
+    "category": "bug_report",
+    "priority": "high",
+    "tags": ["firefox", "button", "browser-compat"]
+  },
+  {
+    "customer_id": "CUST-017",
+    "customer_email": "quinn.rodriguez@company.co",
+    "customer_name": "Quinn Rodriguez",
+    "subject": "Webhook not triggering on order events",
+    "description": "The webhook endpoint configured for order created events is not receiving any payloads. The endpoint is live and accepting POST requests from other sources.",
+    "category": "technical_issue",
+    "priority": "high",
+    "tags": ["webhook", "api", "integration"],
+    "metadata": {"source": "api"}
+  },
+  {
+    "customer_id": "CUST-018",
+    "customer_email": "rachel.lewis@gmail.com",
+    "customer_name": "Rachel Lewis",
+    "subject": "Request Slack notification integration",
+    "description": "Our team would greatly benefit from a native Slack integration that pushes alerts and status updates directly to designated Slack channels.",
+    "category": "feature_request",
+    "priority": "medium",
+    "tags": ["slack", "integration", "notifications"]
+  },
+  {
+    "customer_id": "CUST-019",
+    "customer_email": "samuel.lee@techcorp.com",
+    "customer_name": "Samuel Lee",
+    "subject": "Monthly report generation extremely slow",
+    "description": "Generating a monthly summary report now takes over 15 minutes to complete. The same report took less than 2 minutes as recently as last month.",
+    "category": "technical_issue",
+    "priority": "high",
+    "tags": ["performance", "reports", "slow"],
+    "metadata": {"source": "api"}
+  },
+  {
+    "customer_id": "CUST-020",
+    "customer_email": "tina.walker@gmail.com",
+    "customer_name": "Tina Walker",
+    "subject": "Data export missing phone number and address fields",
+    "description": "When exporting contact data to CSV the phone number and address fields are absent from the output file even though they are populated in the system.",
+    "category": "bug_report",
+    "priority": "medium",
+    "tags": ["export", "data", "fields-missing"]
+  }
+]

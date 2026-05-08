@@ -118,9 +118,9 @@
 
 ### Implementation for User Story 3
 
-- [ ] T029 [US3] Create classification service with keyword dictionaries per category, priority rules, confidence scoring algorithm, and reasoning generator in homework-2/src/services/classify_service.py
+- [ ] T029 [US3] Create classification service with keyword dictionaries for all 6 categories (account_access: login/password/2FA/locked; technical_issue: bug/error/crash/broken; billing_question: payment/invoice/refund/charge; feature_request: suggest/enhance/wish/add; bug_report: defect/reproduce/regression; other: fallback), priority rules, confidence scoring (matched_keywords/total_keywords), reasoning generator, and Python logging of all classification decisions (FR-020) in homework-2/src/services/classify_service.py
 - [ ] T030 [US3] Create classify router with POST /tickets/{id}/auto-classify endpoint in homework-2/src/routers/classify.py
-- [ ] T031 [US3] Integrate auto-classify flag into ticket creation (update tickets router POST /tickets to check auto_classify field and run classification) in homework-2/src/routers/tickets.py
+- [ ] T031 [US3] Integrate auto-classify flag into ticket creation (update tickets router POST /tickets to check auto_classify field and run classification; depends on T016 — same file edit) in homework-2/src/routers/tickets.py
 
 **Checkpoint**: Auto-classification works standalone and integrated with ticket creation
 
