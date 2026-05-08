@@ -20,14 +20,14 @@
 **Purpose**: Project initialization, dependencies, and configuration
 
 <!-- parallel-group: 1 (max 3 concurrent) -->
-- [ ] T001 [P] Create project directory structure per plan.md layout in homework-2/
-- [ ] T002 [P] Create pyproject.toml with project metadata and tool configuration in homework-2/pyproject.toml
-- [ ] T003 [P] Create .gitignore for Python project in homework-2/.gitignore
+- [x] T001 [P] Create project directory structure per plan.md layout in homework-2/
+- [x] T002 [P] Create pyproject.toml with project metadata and tool configuration in homework-2/pyproject.toml
+- [x] T003 [P] Create .gitignore for Python project in homework-2/.gitignore
 
 <!-- parallel-group: 2 (max 3 concurrent) -->
-- [ ] T004 [P] Create requirements.txt with runtime dependencies (fastapi, uvicorn, pydantic, python-multipart, defusedxml, aiosqlite, aiofiles) in homework-2/requirements.txt
-- [ ] T005 [P] Create requirements-dev.txt with dev dependencies (pytest, pytest-asyncio, pytest-cov, httpx) in homework-2/requirements-dev.txt
-- [ ] T006 [P] Create all __init__.py files for src/, src/models/, src/routers/, src/services/, src/db/, src/utils/, tests/ packages
+- [x] T004 [P] Create requirements.txt with runtime dependencies (fastapi, uvicorn, pydantic, python-multipart, defusedxml, aiosqlite, aiofiles) in homework-2/requirements.txt
+- [x] T005 [P] Create requirements-dev.txt with dev dependencies (pytest, pytest-asyncio, pytest-cov, httpx) in homework-2/requirements-dev.txt
+- [x] T006 [P] Create all __init__.py files for src/, src/models/, src/routers/, src/services/, src/db/, src/utils/, tests/ packages
 
 ---
 
@@ -38,14 +38,14 @@
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
 <!-- parallel-group: 3 (max 3 concurrent) -->
-- [ ] T007 [P] Create enum definitions (Category, Priority, Status, Source, DeviceType) in homework-2/src/models/enums.py
-- [ ] T008 [P] Create SQLite database module with connection management, table creation, and async context in homework-2/src/db/database.py
-- [ ] T009 [P] Create Pydantic models for Ticket (create request, update request, response, DB model), Metadata, pagination response in homework-2/src/models/ticket.py
+- [x] T007 [P] Create enum definitions (Category, Priority, Status, Source, DeviceType) in homework-2/src/models/enums.py
+- [x] T008 [P] Create SQLite database module with connection management, table creation, and async context in homework-2/src/db/database.py
+- [x] T009 [P] Create Pydantic models for Ticket (create request, update request, response, DB model), Metadata, pagination response in homework-2/src/models/ticket.py
 
 <!-- sequential -->
-- [ ] T010 Create data access repository with CRUD operations (create, get_by_id, get_all with filters/pagination, update, delete) in homework-2/src/db/repository.py
-- [ ] T011 Create FastAPI application entry point with lifespan (DB init), CORS, and router includes in homework-2/src/main.py
-- [ ] T012 Create shared test fixtures (async test client, test DB setup/teardown, sample ticket data) in homework-2/tests/conftest.py
+- [x] T010 Create data access repository with CRUD operations (create, get_by_id, get_all with filters/pagination, update, delete) in homework-2/src/db/repository.py
+- [x] T011 Create FastAPI application entry point with lifespan (DB init), CORS, and router includes in homework-2/src/main.py
+- [x] T012 Create shared test fixtures (async test client, test DB setup/teardown, sample ticket data) in homework-2/tests/conftest.py
 
 **Checkpoint**: Foundation ready — user story implementation can now begin
 
@@ -60,13 +60,13 @@
 ### Tests for User Story 1
 
 <!-- parallel-group: 4 (max 3 concurrent) -->
-- [ ] T013 [P] [US1] Create API endpoint tests (11 tests: create valid/invalid, get by id/not found, list with filters/pagination, update valid/invalid/not found, delete/not found) in homework-2/tests/test_ticket_api.py
-- [ ] T014 [P] [US1] Create data validation tests (9 tests: email format, subject length bounds, description length bounds, enum validation for category/priority/status/source/device_type, required fields, tags array, metadata object) in homework-2/tests/test_ticket_model.py
+- [x] T013 [P] [US1] Create API endpoint tests (11 tests: create valid/invalid, get by id/not found, list with filters/pagination, update valid/invalid/not found, delete/not found) in homework-2/tests/test_ticket_api.py
+- [x] T014 [P] [US1] Create data validation tests (9 tests: email format, subject length bounds, description length bounds, enum validation for category/priority/status/source/device_type, required fields, tags array, metadata object) in homework-2/tests/test_ticket_model.py
 
 ### Implementation for User Story 1
 
-- [ ] T015 [US1] Create ticket service with business logic (create with UUID/timestamps, get, list with filtering/pagination, update with timestamp, delete) in homework-2/src/services/ticket_service.py
-- [ ] T016 [US1] Create tickets router with CRUD endpoints (POST /tickets, GET /tickets, GET /tickets/{id}, PUT /tickets/{id}, DELETE /tickets/{id}) in homework-2/src/routers/tickets.py
+- [x] T015 [US1] Create ticket service with business logic (create with UUID/timestamps, get, list with filtering/pagination, update with timestamp, delete) in homework-2/src/services/ticket_service.py
+- [x] T016 [US1] Create tickets router with CRUD endpoints (POST /tickets, GET /tickets, GET /tickets/{id}, PUT /tickets/{id}, DELETE /tickets/{id}) in homework-2/src/routers/tickets.py
 
 **Checkpoint**: Ticket CRUD is fully functional and independently testable
 
@@ -81,26 +81,26 @@
 ### Tests for User Story 2
 
 <!-- parallel-group: 5 (max 3 concurrent) -->
-- [ ] T017 [P] [US2] Create CSV parsing tests (6 tests: valid 50-row file, missing required fields, invalid email, extra columns, empty file, malformed CSV) in homework-2/tests/test_import_csv.py
-- [ ] T018 [P] [US2] Create JSON parsing tests (5 tests: valid 20-item array, invalid field values, empty array, malformed JSON, nested object handling) in homework-2/tests/test_import_json.py
-- [ ] T019 [P] [US2] Create XML parsing tests (5 tests: valid 30-element file, missing elements, invalid values, empty file, malformed XML) in homework-2/tests/test_import_xml.py
+- [x] T017 [P] [US2] Create CSV parsing tests (6 tests: valid 50-row file, missing required fields, invalid email, extra columns, empty file, malformed CSV) in homework-2/tests/test_import_csv.py
+- [x] T018 [P] [US2] Create JSON parsing tests (5 tests: valid 20-item array, invalid field values, empty array, malformed JSON, nested object handling) in homework-2/tests/test_import_json.py
+- [x] T019 [P] [US2] Create XML parsing tests (5 tests: valid 30-element file, missing elements, invalid values, empty file, malformed XML) in homework-2/tests/test_import_xml.py
 
 ### Implementation for User Story 2
 
-- [ ] T020 [US2] Create import service with format-specific parsers (parse_csv, parse_json, parse_xml) and unified validate-and-import logic returning ImportSummary in homework-2/src/services/import_service.py
-- [ ] T021 [US2] Create import router with POST /tickets/import endpoint (multipart file upload, format detection by extension, delegates to import_service) in homework-2/src/routers/import_router.py
+- [x] T020 [US2] Create import service with format-specific parsers (parse_csv, parse_json, parse_xml) and unified validate-and-import logic returning ImportSummary in homework-2/src/services/import_service.py
+- [x] T021 [US2] Create import router with POST /tickets/import endpoint (multipart file upload, format detection by extension, delegates to import_service) in homework-2/src/routers/import_router.py
 
 ### Sample Data for User Story 2
 
 <!-- parallel-group: 6 (max 3 concurrent) -->
-- [ ] T022 [P] [US2] Create sample_tickets.csv with 50 valid realistic tickets in homework-2/tests/fixtures/sample_tickets.csv
-- [ ] T023 [P] [US2] Create sample_tickets.json with 20 valid realistic tickets in homework-2/tests/fixtures/sample_tickets.json
-- [ ] T024 [P] [US2] Create sample_tickets.xml with 30 valid realistic tickets in homework-2/tests/fixtures/sample_tickets.xml
+- [x] T022 [P] [US2] Create sample_tickets.csv with 50 valid realistic tickets in homework-2/tests/fixtures/sample_tickets.csv
+- [x] T023 [P] [US2] Create sample_tickets.json with 20 valid realistic tickets in homework-2/tests/fixtures/sample_tickets.json
+- [x] T024 [P] [US2] Create sample_tickets.xml with 30 valid realistic tickets in homework-2/tests/fixtures/sample_tickets.xml
 
 <!-- parallel-group: 7 (max 3 concurrent) -->
-- [ ] T025 [P] [US2] Create invalid_tickets.csv with malformed data (bad emails, missing fields, invalid enums) in homework-2/tests/fixtures/invalid_tickets.csv
-- [ ] T026 [P] [US2] Create invalid_tickets.json with malformed data in homework-2/tests/fixtures/invalid_tickets.json
-- [ ] T027 [P] [US2] Create invalid_tickets.xml with malformed data in homework-2/tests/fixtures/invalid_tickets.xml
+- [x] T025 [P] [US2] Create invalid_tickets.csv with malformed data (bad emails, missing fields, invalid enums) in homework-2/tests/fixtures/invalid_tickets.csv
+- [x] T026 [P] [US2] Create invalid_tickets.json with malformed data in homework-2/tests/fixtures/invalid_tickets.json
+- [x] T027 [P] [US2] Create invalid_tickets.xml with malformed data in homework-2/tests/fixtures/invalid_tickets.xml
 
 **Checkpoint**: All three file formats can be imported with validation and error reporting
 
@@ -114,13 +114,13 @@
 
 ### Tests for User Story 3
 
-- [ ] T028 [US3] Create classification tests (10 tests: each category keyword match, priority keyword escalation, multi-keyword scoring, vague text→other, confidence score range, manual override persistence, auto-classify on creation flag, empty description, mixed category keywords, reasoning text content) in homework-2/tests/test_categorization.py
+- [x] T028 [US3] Create classification tests (10 tests: each category keyword match, priority keyword escalation, multi-keyword scoring, vague text→other, confidence score range, manual override persistence, auto-classify on creation flag, empty description, mixed category keywords, reasoning text content) in homework-2/tests/test_categorization.py
 
 ### Implementation for User Story 3
 
-- [ ] T029 [US3] Create classification service with keyword dictionaries for all 6 categories (account_access: login/password/2FA/locked; technical_issue: bug/error/crash/broken; billing_question: payment/invoice/refund/charge; feature_request: suggest/enhance/wish/add; bug_report: defect/reproduce/regression; other: fallback), priority rules, confidence scoring (matched_keywords/total_keywords), reasoning generator, and Python logging of all classification decisions (FR-020) in homework-2/src/services/classify_service.py
-- [ ] T030 [US3] Create classify router with POST /tickets/{id}/auto-classify endpoint in homework-2/src/routers/classify.py
-- [ ] T031 [US3] Integrate auto-classify flag into ticket creation (update tickets router POST /tickets to check auto_classify field and run classification; depends on T016 — same file edit) in homework-2/src/routers/tickets.py
+- [x] T029 [US3] Create classification service with keyword dictionaries for all 6 categories (account_access: login/password/2FA/locked; technical_issue: bug/error/crash/broken; billing_question: payment/invoice/refund/charge; feature_request: suggest/enhance/wish/add; bug_report: defect/reproduce/regression; other: fallback), priority rules, confidence scoring (matched_keywords/total_keywords), reasoning generator, and Python logging of all classification decisions (FR-020) in homework-2/src/services/classify_service.py
+- [x] T030 [US3] Create classify router with POST /tickets/{id}/auto-classify endpoint in homework-2/src/routers/classify.py
+- [x] T031 [US3] Integrate auto-classify flag into ticket creation (update tickets router POST /tickets to check auto_classify field and run classification; depends on T016 — same file edit) in homework-2/src/routers/tickets.py
 
 **Checkpoint**: Auto-classification works standalone and integrated with ticket creation
 
@@ -135,8 +135,8 @@
 ### Tests for User Story 4
 
 <!-- parallel-group: 8 (max 2 concurrent) -->
-- [ ] T032 [P] [US4] Create integration tests (5 tests: complete ticket lifecycle create→update→resolve→close, bulk import then auto-classify all, concurrent 20+ simultaneous ticket creates, combined category+priority+status filtering with pagination, import→classify→filter end-to-end) in homework-2/tests/test_integration.py
-- [ ] T033 [P] [US4] Create performance benchmark tests (5 tests: single CRUD operation latency <1s, 50-ticket bulk import <5s, classification response time, 20 concurrent requests throughput, list pagination response time) in homework-2/tests/test_performance.py
+- [x] T032 [P] [US4] Create integration tests (5 tests: complete ticket lifecycle create→update→resolve→close, bulk import then auto-classify all, concurrent 20+ simultaneous ticket creates, combined category+priority+status filtering with pagination, import→classify→filter end-to-end) in homework-2/tests/test_integration.py
+- [x] T033 [P] [US4] Create performance benchmark tests (5 tests: single CRUD operation latency <1s, 50-ticket bulk import <5s, classification response time, 20 concurrent requests throughput, list pagination response time) in homework-2/tests/test_performance.py
 
 **Checkpoint**: Full test suite passes with >85% coverage
 
@@ -149,12 +149,12 @@
 **Independent Test**: Verify all 4 docs exist with required sections and ≥3 Mermaid diagrams total
 
 <!-- parallel-group: 9 (max 3 concurrent) -->
-- [ ] T034 [P] [US5] Create README.md with project overview, features, architecture diagram (Mermaid), installation/setup, how to run tests, and project structure in homework-2/docs/README.md
-- [ ] T035 [P] [US5] Create API_REFERENCE.md with all endpoints, request/response examples, data models, error formats, and cURL examples for every endpoint in homework-2/docs/API_REFERENCE.md
-- [ ] T036 [P] [US5] Create ARCHITECTURE.md with high-level architecture diagram (Mermaid), component descriptions, data flow sequence diagrams (Mermaid), design decisions, security/performance considerations in homework-2/docs/ARCHITECTURE.md
+- [x] T034 [P] [US5] Create README.md with project overview, features, architecture diagram (Mermaid), installation/setup, how to run tests, and project structure in homework-2/docs/README.md
+- [x] T035 [P] [US5] Create API_REFERENCE.md with all endpoints, request/response examples, data models, error formats, and cURL examples for every endpoint in homework-2/docs/API_REFERENCE.md
+- [x] T036 [P] [US5] Create ARCHITECTURE.md with high-level architecture diagram (Mermaid), component descriptions, data flow sequence diagrams (Mermaid), design decisions, security/performance considerations in homework-2/docs/ARCHITECTURE.md
 
 <!-- sequential -->
-- [ ] T037 [US5] Create TESTING_GUIDE.md with test pyramid diagram (Mermaid), how to run tests, sample data locations, manual testing checklist, performance benchmarks table in homework-2/docs/TESTING_GUIDE.md
+- [x] T037 [US5] Create TESTING_GUIDE.md with test pyramid diagram (Mermaid), how to run tests, sample data locations, manual testing checklist, performance benchmarks table in homework-2/docs/TESTING_GUIDE.md
 
 **Checkpoint**: All documentation complete with ≥3 Mermaid diagrams
 
@@ -164,10 +164,10 @@
 
 **Purpose**: Final validation, cleanup, and coverage verification
 
-- [ ] T038 Run full test suite with coverage report (pytest --cov=src --cov-report=html --cov-report=term) and verify >85% coverage
-- [ ] T039 Capture test coverage screenshot and save to homework-2/docs/screenshots/test_coverage.png
-- [ ] T040 Validate all sample data files exist and match spec counts (CSV=50, JSON=20, XML=30)
-- [ ] T041 Run quickstart.md validation — verify server starts and sample cURL commands work
+- [x] T038 Run full test suite with coverage report (pytest --cov=src --cov-report=html --cov-report=term) and verify >85% coverage
+- [x] T039 Capture test coverage screenshot and save to homework-2/docs/screenshots/test_coverage.png
+- [x] T040 Validate all sample data files exist and match spec counts (CSV=50, JSON=20, XML=30)
+- [x] T041 Run quickstart.md validation — verify server starts and sample cURL commands work
 
 ---
 
