@@ -1,8 +1,9 @@
 # Homework 3 — Specification-Driven Design
 
-**Author:** Vladyslav (PHP Software Architect)
+**Author:** Vladyslav Shut
 **Submission date:** 2026-05-08
 **Topic:** Virtual Card Lifecycle Management — specification package for a regulated FinTech context.
+**AI Tools Used:** Claude (Opus 4.7 + Adaptive Thinking) + Claude Code (just to commit and push) 
 
 ## Task summary
 
