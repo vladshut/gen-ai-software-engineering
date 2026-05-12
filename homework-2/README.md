@@ -1,5 +1,6 @@
 # 🎧 Homework 2: Intelligent Customer Support System
 
+> **Student Name**: Vladyslav Shut
 > **Date Submitted**: 2026-05-08
 > **AI Tools Used**: Claude Code (Claude Opus 4.6), SpecKit Fleet Orchestrator
 

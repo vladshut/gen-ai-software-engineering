@@ -1,5 +1,7 @@
 # Intelligent Customer Support System
 
+> **Author**: Vladyslav Shut
+
 ## Project Overview
 
 REST API for customer support ticket management built with Python and FastAPI. Supports multi-format bulk import (CSV, JSON, XML), automatic ticket classification with confidence scoring, and comprehensive test coverage exceeding 85%.
