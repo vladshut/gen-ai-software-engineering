@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Pytest
+.pytest_cache/
+
+# Runtime DB (created at app import time)
+tasks.db
+src/tasks.db
+*.sqlite
+*.sqlite3
+
+# Environment files
+src/.env
+.env
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Isolated workflow run workspaces (reproducible; not committed)
+runs/
+
+# Node deps (only used for ad-hoc tooling; not a deliverable)
+node_modules/
+package-lock.json
+
+# Property-based test cache & pipeline run markers (transient)
+.hypothesis/
+.analyze-done
+.verify-done
+# Per-agent invocation logs written by the runners
+**/.last-*.json
