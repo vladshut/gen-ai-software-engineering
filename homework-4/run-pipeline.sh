@@ -67,6 +67,22 @@ run_agent() {
   die "Agent ${agent_name} failed after 3 attempts (last error in ${out})."
 }
 
+# --- Automatic baseline reset (in-place) ---------------------------------
+# This runner works on the repo's own src/ in place, so before a real run the
+# app must be in its BUGGY state — otherwise there is nothing to fix. Restore
+# the seeded baseline automatically (the manual `cp src/app.py.seeded src/app.py`
+# step is no longer needed). Set RESET=0 to skip — e.g. to re-run only later
+# steps against an already-fixed tree.
+RESET="${RESET:-1}"
+if [[ "${RESET}" == "1" ]]; then
+  [[ -f "${ROOT}/src/app.py.seeded" ]] || die "src/app.py.seeded not found — cannot reset to the buggy baseline."
+  cp "${ROOT}/src/app.py.seeded" "${ROOT}/src/app.py"
+  rm -f "${ROOT}/tasks.db" "${ROOT}/src/tasks.db"
+  log "Reset src/app.py to the seeded buggy baseline (RESET=1)."
+else
+  log "RESET=0 — running against src/ as-is."
+fi
+
 # Step 1 — Bug Researcher
 run_agent "bug-researcher" \
   "Inspect the app under ${ROOT}/src and ${ROOT}/tests. Bug context lives at ${CTX}/bug-context.md (read only the Purpose/Expected sections per protocol). Emit ${RESEARCH}/codebase-research.md."

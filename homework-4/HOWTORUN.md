@@ -71,16 +71,14 @@ This is what a homework reviewer would do to verify that the pipeline
 itself works, not just the committed outputs.
 
 ```bash
-# 1. Restore the buggy baseline so the pipeline has work to do
-cp src/app.py.seeded src/app.py
-
-# 2. Confirm the regression suite now fails on the buggy code
+# Just run it — the pipeline resets src/app.py to the buggy baseline itself
+# (automatic; pass RESET=0 to run against src/ as-is).
 export ADMIN_API_KEY=test-admin-key
-pytest tests/test_app.py -v
-# Expected: 10 failed, 4 passed — proves the tests are not vacuous
-
-# 3. Run the pipeline
 ./run-pipeline.sh 001
+
+# Optional: prove the regression tests aren't vacuous by running them on the
+# buggy code yourself first:
+#   cp src/app.py.seeded src/app.py && pytest tests/test_app.py -v   # ~10 failed
 ```
 
 What you should see:
@@ -272,15 +270,18 @@ checksums unchanged across all test runs).
 
 **`run-pipeline.sh` is the exception — it runs in place.** That matches the
 homework's classic single-command design, so it mutates the repo's `src/` and
-`context/`. To make *it* idempotent, restore the baseline before each run:
+`context/`. It is still idempotent, though: it **auto-resets** `src/app.py` to
+the seeded buggy baseline at the start of every run, so each run starts from
+the same input and regenerates the same in-place artifacts — no manual reset
+needed.
 
 ```bash
-cp src/app.py.seeded src/app.py    # reset to buggy input
-./run-pipeline.sh 001
+./run-pipeline.sh 001          # auto-resets to buggy, then fixes in place
+RESET=0 ./run-pipeline.sh 001  # skip the reset (run against src/ as-is)
 ```
 
-(For a fully isolated `run-pipeline.sh` run, copy the project into a scratch
-folder and run it there — that is how it was tested without touching the repo.)
+(For a *fully isolated* `run-pipeline.sh` run that never touches the repo, copy
+the project into a scratch folder and run it there — that is how it was tested.)
 
 ---
 
