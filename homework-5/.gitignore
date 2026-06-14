@@ -1,0 +1,10 @@
+# Real secrets — never commit. Only .env.example is tracked.
+.env
+
+# Local Claude Code trust/approval state (machine-specific)
+.claude/settings.local.json
+
+# Python virtual environment for the custom MCP server
+custom-mcp-server/.venv/
+__pycache__/
+*.pyc
