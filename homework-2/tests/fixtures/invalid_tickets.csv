@@ -1,0 +1,6 @@
+customer_id,customer_email,customer_name,subject,description,category,priority,tags,source,browser,device_type
+CUST-101,,John Smith,Missing email address field,This ticket has no customer email address which is a required field for all submissions.,account_access,medium,"[""login""]",web_form,Chrome,desktop
+CUST-102,not-a-valid-email-address,Jane Doe,Invalid email format in record,The customer email field contains a string that does not conform to a valid email address format.,billing_question,low,"[]",email,Firefox,desktop
+CUST-103,test.user@example.com,Mark Wilson,This subject line is intentionally way too long and exceeds the maximum allowed character limit of two hundred characters for ticket subjects in the system which causes a validation failure,This ticket subject exceeds the 200 character maximum allowed length.,technical_issue,high,"[""subject-too-long""]",web_form,Chrome,desktop
+CUST-104,short@test.com,Lisa Brown,Description too short,Too short.,feature_request,low,"[]",chat,Safari,mobile
+CUST-105,bad.category@example.com,Chris Taylor,Ticket with invalid category value,This ticket uses a category value that is not in the allowed enumeration of valid categories.,not_a_real_category,medium,"[]",web_form,Edge,desktop
