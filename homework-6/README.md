@@ -27,6 +27,31 @@ and a **coverage gate** blocks pushes below 80%.
 - **Settlement Processor** — FX-converts to a USD base with static rates, applies
   a 0.1% fee (ROUND_HALF_UP, min $0.01); `settled` / `held` / `rejected`.
 
+## Why deterministic agents (not LLMs)?
+
+Every pipeline agent is a **pure deterministic function — there are no LLM calls
+at runtime.** This is a deliberate architectural choice, not a limitation:
+
+- **Correctness & reproducibility** — money math, ISO-4217 validation, and the
+  fraud-scoring table are fixed, fully specified rules. A deterministic
+  implementation is exact and gives the same result on every run, which is what
+  makes the **outcome oracle** and the coverage gate meaningful in the first place.
+- **Auditability** — financial decisions must be reproducible on paper. Fixed
+  rules give a clear, traceable "why" for every outcome; a non-deterministic model
+  would not, and would add a model id / prompt / response to audit for each record.
+- **Cost & latency** — a rule check is free and instant. The input is structured
+  numeric/enum fields, so there is no ambiguity for a model to resolve that
+  `amount >= 10000` doesn't already answer.
+- **Scale** — high transaction volume argues *for* determinism, not against it:
+  the pure functions process the sample set in ~0.1 s and scale to millions
+  essentially for free. Going faster is an **infrastructure** problem (batching,
+  parallelism), not an intelligence problem.
+
+LLMs would only earn their place if the inputs changed to include genuine
+ambiguity — free-text fields needing AML/sanctions judgment, novel fraud patterns
+beyond a fixed table, or natural-language report drafting. None of those apply to
+this dataset, so the system stays deterministic by design.
+
 ## Pipeline diagram
 
 ```
