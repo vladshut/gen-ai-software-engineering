@@ -13,3 +13,8 @@ shared/processing/
 shared/output/
 shared/results/
 !shared/**/.gitkeep
+
+# Fast-mode (--fast) outputs and generated load files
+shared/*.jsonl
+/load.jsonl
+/results.jsonl

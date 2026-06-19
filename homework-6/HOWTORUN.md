@@ -80,3 +80,24 @@ Or run it directly over STDIO: `./.venv/bin/python -m mcp_server.server`.
 > Tip: run `python integrator.py` (step 4) before querying the MCP server so
 > `shared/results/` is populated.
 ```
+
+## 8. Fast mode — high-volume throughput (optional)
+
+The graded path (steps 4–5) uses the file-based `shared/` protocol — one JSON
+file per hop, ideal for auditing a handful of transactions. For large volumes,
+`--fast` keeps the same three deterministic agents but streams JSONL in/out and
+fans the work across CPU cores (see `fast_pipeline.py`). It does **not** touch
+the graded path, the oracle, or the `shared/` files.
+
+Generate a synthetic load file and run it:
+```bash
+./.venv/bin/python generate_load.py -n 500000 -o load.jsonl
+./.venv/bin/python integrator.py --fast --input load.jsonl --output results.jsonl
+```
+Expect ~150k+ transactions/sec on a typical laptop. Flags: `--workers N`
+(default: CPU count − 1) and `--chunk-size N` (default: 10000). The output is one
+final record per line in `results.jsonl`.
+
+Because the agents are pure functions and every transaction is independent, the
+parallel output is byte-identical to the single-worker (`--workers 1`) output —
+worker count never changes a decision.

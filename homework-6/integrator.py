@@ -16,7 +16,9 @@ build-plan oracle.
 
 from __future__ import annotations
 
+import argparse
 import json
+import os
 import shutil
 from decimal import Decimal
 from pathlib import Path
@@ -195,7 +197,8 @@ def assert_oracle(outcomes: dict[str, str]) -> None:
         raise AssertionError("oracle mismatch:\n  " + "\n  ".join(lines))
 
 
-def main() -> int:
+def _run_graded() -> int:
+    """The default, graded run: file-based shared/ protocol + oracle assertion."""
     print("=" * 64)
     print("  Banking Pipeline — validator -> fraud -> settlement")
     print("=" * 64)
@@ -214,6 +217,79 @@ def main() -> int:
     print("\n✅ Oracle check passed — all 8 fraud decisions match expected outcome.")
     print(f"   Final records written to: {DIR_RESULTS}")
     return 0
+
+
+def _run_fast(args: argparse.Namespace) -> int:
+    """High-throughput mode: stream JSONL, fan across cores, append JSONL.
+
+    Separate from the graded path — no shared/ files, no oracle. See
+    ``fast_pipeline.py`` for the Tier 1 + Tier 2 design.
+    """
+    from fast_pipeline import run_scaled
+
+    input_path = Path(args.input) if args.input else BASE / "sample-transactions.json"
+    output_path = Path(args.output)
+    if not output_path.is_absolute():
+        output_path = BASE / output_path
+
+    print("=" * 64)
+    print("  Banking Pipeline — FAST mode (streaming + multiprocessing)")
+    print("=" * 64)
+    print(f"Input : {input_path}")
+
+    stats = run_scaled(
+        input_path,
+        output_path,
+        workers=args.workers,
+        chunk_size=args.chunk_size,
+    )
+
+    print(
+        f"\nProcessed {stats['total']:,} transactions in {stats['seconds']}s "
+        f"({stats['per_sec']:,}/s) across {stats['workers']} worker(s)"
+    )
+    print(
+        f"  settled={stats['settled']:,}  held={stats['held']:,}  "
+        f"rejected={stats['rejected']:,}"
+    )
+    print(f"  Results -> {output_path}")
+    return 0
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="Banking pipeline orchestrator")
+    parser.add_argument(
+        "--fast",
+        action="store_true",
+        help="high-throughput mode: stream JSONL, run in parallel, no shared/ files",
+    )
+    parser.add_argument(
+        "--input",
+        default=None,
+        help="input file for --fast (.jsonl streamed, or .json array)",
+    )
+    parser.add_argument(
+        "--output",
+        default="shared/results.jsonl",
+        help="JSONL results path for --fast (default: shared/results.jsonl)",
+    )
+    parser.add_argument(
+        "--workers",
+        type=int,
+        default=None,
+        help="process pool size for --fast (default: CPU count - 1)",
+    )
+    parser.add_argument(
+        "--chunk-size",
+        type=int,
+        default=10_000,
+        help="transactions per worker task for --fast (default: 10000)",
+    )
+    args = parser.parse_args(argv)
+
+    if args.fast:
+        return _run_fast(args)
+    return _run_graded()
 
 
 if __name__ == "__main__":
