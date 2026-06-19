@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Git pre-push fallback gate: block the push unless coverage is >= 80%.
+# Enable with:  git config core.hooksPath .githooks
+set -uo pipefail
+
+PROJECT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+PY="$PROJECT_DIR/.venv/bin/python"
+[ -x "$PY" ] || PY="python3"
+
+echo "🔒 pre-push: running coverage check (>= 80%)..." >&2
+
+if ! (cd "$PROJECT_DIR" && "$PY" -m pytest \
+      --cov=agents --cov=common --cov-report=term-missing --cov-fail-under=80); then
+  echo "" >&2
+  echo "❌ pre-push: push BLOCKED — coverage below 80% (or tests failed)." >&2
+  exit 1
+fi
+
+echo "✅ pre-push: coverage OK — push allowed." >&2
+exit 0
