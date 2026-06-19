@@ -67,32 +67,32 @@ The pipeline asserts this oracle on every run — **all 8 decisions match**.
 ### 1. Pipeline run (`python integrator.py`)
 All 8 transactions processed, PII masked, oracle check passed.
 
-![Pipeline run](screenshots/pipeline-run.png)
+![Pipeline run](https://raw.githubusercontent.com/vladshut/gen-ai-software-engineering/homework-6-submission/homework-6/docs/screenshots/pipeline-run.png)
 
 ### 2. Test coverage (gate ≥ 80%, target ≥ 90%)
 48 tests passing at **97%** coverage.
 
-![Test coverage](screenshots/test-coverage.png)
+![Test coverage](https://raw.githubusercontent.com/vladshut/gen-ai-software-engineering/homework-6-submission/homework-6/docs/screenshots/test-coverage.png)
 
 ### 3. `/run-pipeline` skill
 The slash-command skill runs the end-to-end pipeline and reports the per-transaction table + oracle confirmation.
 
-![/run-pipeline skill](screenshots/skill-run-pipeline.png)
+![/run-pipeline skill](https://raw.githubusercontent.com/vladshut/gen-ai-software-engineering/homework-6-submission/homework-6/docs/screenshots/skill-run-pipeline.png)
 
 ### 4. Coverage-gate hook firing (push blocked)
 The PreToolUse coverage gate detects `git push`, runs the suite, and **blocks** when coverage is below threshold (exit 2).
 
-![Coverage gate blocking push](screenshots/hook-trigger.png)
+![Coverage gate blocking push](https://raw.githubusercontent.com/vladshut/gen-ai-software-engineering/homework-6-submission/homework-6/docs/screenshots/hook-trigger.png)
 
 ### 5. MCP usage — context7 query
 context7 looked up the FastMCP `@mcp.tool` decorator pattern used in `mcp_server/server.py` (documented in `research-notes.md`).
 
-![context7 query](screenshots/mcp-interaction-context7.png)
+![context7 query](https://raw.githubusercontent.com/vladshut/gen-ai-software-engineering/homework-6-submission/homework-6/docs/screenshots/mcp-interaction-context7.png)
 
 ### 6. MCP usage — custom tool call
 The custom `pipeline-status` MCP server answering `get_transaction_status("TXN005")` → `held`.
 
-![Custom MCP tool call](screenshots/mcp-interaction-tool.png)
+![Custom MCP tool call](https://raw.githubusercontent.com/vladshut/gen-ai-software-engineering/homework-6-submission/homework-6/docs/screenshots/mcp-interaction-tool.png)
 
 ---
 
