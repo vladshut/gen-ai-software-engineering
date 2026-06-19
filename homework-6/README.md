@@ -124,3 +124,10 @@ homework-6/
 ```
 
 > See **HOWTORUN.md** for numbered setup → demo steps.
+
+## Presentation
+
+A self-contained slide deck walking through the pipeline (architecture, agents,
+oracle, why-deterministic, scaling) lives at
+[`docs/presentation.html`](docs/presentation.html) — open it in any browser
+(no build step; navigate with ← / → / Space).
