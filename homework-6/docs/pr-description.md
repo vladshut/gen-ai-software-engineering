@@ -42,6 +42,26 @@ The pipeline asserts this oracle on every run — **all 8 decisions match**.
 
 ---
 
+## 🛠️ AI tools used
+
+- **Claude Code (Opus 4.8)** drove the whole build as four meta-agents: spec → code → tests → docs.
+  - **Spec** authored via the `/write-spec` skill from the frozen contracts in `TASKS.md`.
+  - **Code** generated agent-by-agent (validator, then fraud, then settlement, then integrator), testing each before moving on.
+  - **Tests** generated to target ≥ 90% coverage, then verified by actually running `pytest --cov`.
+  - **Docs** (`README.md`, `HOWTORUN.md`) generated last, once behavior was locked.
+- **context7 MCP** — looked up live docs for the `decimal` module (`/python/cpython`) and `fastmcp` (`/prefecthq/fastmcp`); both queries and the patterns applied are documented in `research-notes.md`.
+- **Custom `pipeline-status` MCP server** — built to make results queryable (`get_transaction_status`, `list_pipeline_results`, `pipeline://summary`).
+- **What I verified myself (not taken on trust from the model):** ran `integrator.py` and confirmed the oracle passes; ran the full test suite and confirmed 97% coverage; manually triggered the coverage-gate hook and confirmed it blocks a push (exit 2); called the custom MCP tool and confirmed `TXN005 → held`.
+
+## ⚠️ Challenges encountered
+
+- **Float drift in money math** — naive arithmetic produced rounding errors. Resolved by using `decimal.Decimal` end-to-end with `ROUND_HALF_UP` (serialized as strings across the file protocol to preserve precision).
+- **`mcp` package name clash** — naming the server package `mcp` shadowed the official MCP SDK that `fastmcp` imports and broke `from fastmcp import FastMCP`. Renamed the package to `mcp_server` (documented in the server docstring).
+- **Coverage gate that actually blocks** — needed the hook to fail the push, not just warn. Implemented as a Claude Code PreToolUse hook returning exit code 2, with a `.githooks/pre-push` fallback, and demoed the block by temporarily raising the threshold to 99%.
+- **Test isolation** — tests originally touched the real `shared/`. Reworked the integrator to accept a `shared_root` so the integration tests run entirely under `tmp_path`.
+
+---
+
 ## Screenshots
 
 ### 1. Pipeline run (`python integrator.py`)
