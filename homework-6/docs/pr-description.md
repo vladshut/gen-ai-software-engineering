@@ -84,6 +84,10 @@ The PreToolUse coverage gate detects `git push`, runs the suite, and **blocks** 
 
 ![Coverage gate blocking push](https://raw.githubusercontent.com/vladshut/gen-ai-software-engineering/homework-6-submission/homework-6/docs/screenshots/hook-trigger.png)
 
+And firing live as a Claude Code **PreToolUse** hook on a real `git push` — the gate was temporarily raised to 99%, intercepted the push, ran the suite (97%), and blocked it (exit 2) before it reached the remote.
+
+![Coverage gate blocking a real push](https://raw.githubusercontent.com/vladshut/gen-ai-software-engineering/homework-6-submission/homework-6/docs/screenshots/hook-trigger-live-push.png)
+
 ### 5. MCP usage — context7 query
 context7 looked up the FastMCP `@mcp.tool` decorator pattern used in `mcp_server/server.py` (documented in `research-notes.md`).
 
