@@ -4,14 +4,18 @@ This is an OPTIONAL fast path, separate from the graded file-based protocol in
 ``integrator.py``. It reuses the three pure agents unchanged but removes the
 two bottlenecks that cap throughput at volume:
 
-- **Tier 1 — no per-transaction I/O.** Instead of writing four small JSON files
-  per transaction into ``shared/{input,processing,output,results}/``, it streams
-  the input as JSONL, runs ``validate -> assess -> settle`` in memory, and
-  appends one JSONL line per final record. Input is read line-by-line, so memory
-  is O(chunk), not O(N) — a multi-GB file processes on a laptop.
-- **Tier 2 — all cores.** Each transaction is independent, so the stream is
-  fanned across a ``ProcessPoolExecutor`` in chunks (processes, not threads, to
-  sidestep the GIL for CPU-bound work).
+- **Tier 1 (default) — no per-transaction I/O.** Instead of writing four small
+  JSON files per transaction into ``shared/{input,processing,output,results}/``,
+  it streams the input as JSONL, runs ``validate -> assess -> settle`` in memory,
+  and appends one JSONL line per final record. Input is read line-by-line, so
+  memory is O(chunk), not O(N) — a multi-GB file processes on a laptop. This is
+  where essentially all the speedup comes from (~40x over the file-based path).
+- **Tier 2 (opt-in, ``workers > 1``) — multiple cores.** Each transaction is
+  independent, so the stream can be fanned across a ``ProcessPoolExecutor`` in
+  chunks (processes, not threads, to sidestep the GIL). This is off by default:
+  once file I/O is gone the per-transaction work is tiny, so process-spawn/IPC
+  overhead makes it a net loss on small inputs and only a marginal win on very
+  large ones. Raise ``workers`` only for genuinely huge batches.
 
 Determinism is preserved: the agents are pure functions with no shared state and
 every transaction is independent, so the per-transaction outcome is identical to
@@ -22,7 +26,6 @@ the sequential graded run for any worker count. (Sort the output by
 from __future__ import annotations
 
 import json
-import os
 import time
 from collections import Counter
 from concurrent.futures import ProcessPoolExecutor
@@ -85,13 +88,15 @@ def run_scaled(
     workers: int | None = None,
     chunk_size: int = 10_000,
 ) -> dict[str, Any]:
-    """Stream input -> pure-function chain across a process pool -> JSONL output.
+    """Stream input -> pure-function chain -> JSONL output.
 
-    Returns a stats dict: total, settled/held/rejected counts, workers, seconds,
-    and per_sec throughput.
+    Defaults to a single process (Tier 1); pass ``workers > 1`` to fan across a
+    process pool (Tier 2). Returns a stats dict: total, settled/held/rejected
+    counts, workers, seconds, and per_sec throughput.
     """
     if workers is None:
-        workers = max(1, (os.cpu_count() or 2) - 1)
+        workers = 1
+    workers = max(1, workers)
     chunk_size = max(1, chunk_size)
 
     counts: Counter[str] = Counter()

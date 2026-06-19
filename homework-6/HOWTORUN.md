@@ -91,13 +91,27 @@ the graded path, the oracle, or the `shared/` files.
 
 Generate a synthetic load file and run it:
 ```bash
-./.venv/bin/python generate_load.py -n 500000 -o load.jsonl
+./.venv/bin/python generate_load.py -n 1000000 -o load.jsonl
 ./.venv/bin/python integrator.py --fast --input load.jsonl --output results.jsonl
 ```
-Expect ~150k+ transactions/sec on a typical laptop. Flags: `--workers N`
-(default: CPU count − 1) and `--chunk-size N` (default: 10000). The output is one
-final record per line in `results.jsonl`.
+The output is one final record per line in `results.jsonl`.
+
+**Where the speed comes from.** Almost all of it is *Tier 1* — streaming JSONL
+and dropping the four-files-per-transaction I/O of the graded path. Measured on a
+laptop (1 transaction = a few comparisons + a Decimal op):
+
+| Mode | Throughput | vs file-based |
+|---|---|---|
+| File-based, sequential (graded path) | ~2,300/s | 1× |
+| `--fast` (single process, **default**) | ~115,000/s | **~40–50×** |
+| `--fast --workers 7` | ~140,000/s | ~50–60× |
+
+`--fast` runs **single-process by default**, which is the right choice here: once
+the file I/O is gone the per-transaction work is tiny, so the process-pool
+overhead is a net loss on small inputs and only a ~1.2× win at ~1M rows. Use
+`--workers N` only for genuinely huge batches; `--chunk-size N` (default 10000)
+tunes the per-task batch.
 
 Because the agents are pure functions and every transaction is independent, the
-parallel output is byte-identical to the single-worker (`--workers 1`) output —
-worker count never changes a decision.
+output is byte-identical regardless of `--workers` — worker count never changes a
+decision.

@@ -276,8 +276,9 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--workers",
         type=int,
-        default=None,
-        help="process pool size for --fast (default: CPU count - 1)",
+        default=1,
+        help="worker processes for --fast (default: 1 = single process; "
+        "raise only for very large batches — see HOWTORUN.md)",
     )
     parser.add_argument(
         "--chunk-size",
