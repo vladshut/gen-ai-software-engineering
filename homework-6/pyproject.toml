@@ -1,0 +1,27 @@
+[project]
+name = "homework-6"
+version = "0.1.0"
+description = "Multi-agent banking transaction pipeline (validator -> fraud -> settlement)"
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [{ name = "Vladyslav Shut" }]
+dependencies = ["fastmcp>=3.0"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "pytest-cov>=5.0"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["common", "agents", "mcp"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.coverage.run]
+branch = true
+source = ["agents", "common"]
+omit = ["tests/*"]
