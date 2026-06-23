@@ -34,6 +34,7 @@ from pathlib import Path
 from typing import Any, Iterator
 
 from agents.fraud_detector import assess_transaction
+from agents.compliance_checker import check_transaction
 from agents.settlement_processor import settle_transaction
 from agents.transaction_validator import validate_transaction
 from integrator import _json_default
@@ -41,7 +42,7 @@ from integrator import _json_default
 
 def process_one(txn: dict[str, Any]) -> dict[str, Any]:
     """Run a single transaction through the full deterministic agent chain."""
-    return settle_transaction(assess_transaction(validate_transaction(txn)))
+    return settle_transaction(check_transaction(assess_transaction(validate_transaction(txn))))
 
 
 def process_chunk(chunk: list[dict[str, Any]]) -> list[tuple[str, str]]:

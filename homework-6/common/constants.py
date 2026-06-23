@@ -69,8 +69,13 @@ STATUS_REJECTED = "rejected"
 STATUS_SETTLED = "settled"
 STATUS_HELD = "held"
 
+# --- Compliance: sanctions + restricted jurisdictions -------------------------
+SANCTIONED_ACCOUNTS: frozenset[str] = frozenset({"ACC-9999"})
+RESTRICTED_COUNTRIES: frozenset[str] = frozenset({"KP", "IR", "SY"})
+
 # --- Agent names (used in the message envelope) ------------------------------
 AGENT_VALIDATOR = "transaction_validator"
 AGENT_FRAUD = "fraud_detector"
+AGENT_COMPLIANCE = "compliance_checker"
 AGENT_SETTLEMENT = "settlement_processor"
 AGENT_INTEGRATOR = "integrator"
