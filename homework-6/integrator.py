@@ -1,4 +1,4 @@
-"""Integrator: orchestrate the three pipeline agents over the file-based
+"""Integrator: orchestrate the four pipeline agents over the file-based
 shared/ protocol.
 
 Flow per transaction (each hop writes a Message envelope as JSON):
@@ -7,6 +7,7 @@ Flow per transaction (each hop writes a Message envelope as JSON):
         -> shared/input/<txn>.json        (raw, ingested)
         -> [validator]   -> shared/processing/<txn>.validated.json
         -> [fraud]       -> shared/output/<txn>.assessed.json
+        -> [compliance]  -> shared/output/<txn>.checked.json
         -> [settlement]  -> shared/results/<txn>.json   (final record)
 
 All console logging masks PII (accounts -> ****1234). A run summary is written
@@ -25,9 +26,11 @@ from pathlib import Path
 from typing import Any
 
 from agents.fraud_detector import assess_transaction
+from agents.compliance_checker import check_transaction
 from agents.settlement_processor import settle_transaction
 from agents.transaction_validator import validate_transaction
 from common.constants import (
+    AGENT_COMPLIANCE,
     AGENT_FRAUD,
     AGENT_INTEGRATOR,
     AGENT_SETTLEMENT,
@@ -46,8 +49,8 @@ DIR_RESULTS = SHARED / "results"
 ORACLE = {
     "TXN001": "approved",
     "TXN002": "flagged_review",
-    "TXN003": "flagged_review",
-    "TXN004": "review",
+    "TXN003": "rejected",
+    "TXN004": "rejected",
     "TXN005": "flagged_review",
     "TXN006": "rejected",
     "TXN007": "rejected",
@@ -111,18 +114,27 @@ def run_pipeline(
 
         # Hop 2: fraud -> shared/output
         assessed = assess_transaction(validated)
-        # The fraud decision (approved/review/flagged_review/rejected) is the
-        # oracle target; settlement later remaps it to settled/held/rejected.
-        outcomes[txn_id] = assessed["status"]
         _write_message(
             dir_output,
             txn_id,
             ".assessed",
-            Message(AGENT_FRAUD, AGENT_SETTLEMENT, assessed),
+            Message(AGENT_FRAUD, AGENT_COMPLIANCE, assessed),
         )
 
-        # Hop 3: settlement -> shared/results (final record)
-        settled = settle_transaction(assessed)
+        # Hop 3: compliance -> shared/output
+        checked = check_transaction(assessed)
+        # The status after compliance is the oracle target: approved/review/
+        # flagged_review/rejected (compliance may reject sanctioned/restricted).
+        outcomes[txn_id] = checked["status"]
+        _write_message(
+            dir_output,
+            txn_id,
+            ".checked",
+            Message(AGENT_COMPLIANCE, AGENT_SETTLEMENT, checked),
+        )
+
+        # Hop 4: settlement -> shared/results (final record)
+        settled = settle_transaction(checked)
         _write_message(
             dir_results,
             txn_id,
@@ -200,7 +212,7 @@ def assert_oracle(outcomes: dict[str, str]) -> None:
 def _run_graded() -> int:
     """The default, graded run: file-based shared/ protocol + oracle assertion."""
     print("=" * 64)
-    print("  Banking Pipeline — validator -> fraud -> settlement")
+    print("  Banking Pipeline — validator -> fraud -> compliance -> settlement")
     print("=" * 64)
     reset_shared()
     transactions = load_transactions(BASE / "sample-transactions.json")

@@ -5,9 +5,10 @@
 ## 1. High-Level Objective
 
 Build a deterministic, multi-agent banking transaction pipeline that ingests raw
-transactions and runs them through validation, fraud scoring, and settlement —
-passing JSON messages over a file-based `shared/` protocol — producing an
-auditable final record for every transaction.
+transactions and runs them through validation, fraud scoring, compliance
+screening, and settlement — exposed as a REST API with a configurable step
+chain — passing JSON messages over a file-based `shared/` protocol and producing
+an auditable final record for every transaction.
 
 ## 2. Mid-Level Objectives
 
@@ -17,12 +18,18 @@ auditable final record for every transaction.
 - **Score fraud** using a fixed additive model (high value, very high value,
   structuring, unusual timing, cross-border, high-risk rail) and map the score
   to a decision band (`approved` / `review` / `flagged_review`).
+- **Screen compliance** against a sanctioned accounts list and a restricted
+  jurisdictions set; reject any transaction that hits either check regardless of
+  its fraud decision.
 - **Settle** approved/review transactions by FX-converting to a USD base with
   static documented rates and applying a 0.1% fee (ROUND_HALF_UP, min $0.01);
-  hold flagged transactions; leave rejected ones rejected.
-- **Orchestrate** the three agents end-to-end via an integrator that moves
+  hold flagged transactions; leave rejected ones unsettled.
+- **Orchestrate** the four agents end-to-end via an integrator that moves
   messages `input → processing → output → results`, masks PII in all logs, and
   writes a run summary — reproducing a known outcome oracle.
+- **Expose as REST API** via FastAPI — each agent is an HTTP endpoint; a
+  configurable `PIPELINE_STEPS` list defines the step order; the chain calls
+  forward step-by-step and short-circuits on rejection.
 - **Expose & verify** results through a custom FastMCP server (2 tools + 1
   resource) and guarantee quality with a unit/integration test suite behind a
   coverage gate (≥ 80% required, ≥ 90% target).
@@ -30,10 +37,27 @@ auditable final record for every transaction.
 ## 3. Implementation Notes
 
 - **Language/runtime:** Python 3.12+ (developed on 3.13). Standard library plus
-  `fastmcp` for the MCP server; `pytest` + `pytest-cov` for tests.
-- **Determinism:** the three pipeline agents are pure functions — **no LLM calls
+  `fastmcp` for the MCP server; `fastapi` + `uvicorn` + `httpx` for the REST
+  API gateway; `pytest` + `pytest-cov` for tests.
+- **Determinism:** the four pipeline agents are pure functions — **no LLM calls
   inside them**. The "agents" of the homework brief refer to how Claude Code is
   used to build the system, not runtime components.
+- **REST API gateway** (`api_server.py`): FastAPI app exposing each agent at
+  `POST /steps/{name}`. A `PIPELINE_STEPS` config list defines the execution
+  order. `POST /pipeline` is the entry point — it calls step 0, and each step
+  calls the next via HTTP. If any step sets `status = "rejected"`, the chain
+  stops, settlement produces the final record, and the result is written to
+  `shared/results/`. `GET /config` returns the current step order.
+- **Pipeline step config** (in `api_server.py`):
+  ```python
+  PIPELINE_STEPS = [
+      {"name": "validator",  "path": "/steps/validator"},
+      {"name": "fraud",      "path": "/steps/fraud"},
+      {"name": "compliance", "path": "/steps/compliance"},
+      {"name": "settlement", "path": "/steps/settlement"},
+  ]
+  ```
+  To reorder or add steps, edit this list. Settlement must be the terminal step.
 - **File-based `shared/` protocol:** every hop serializes a `Message` envelope
   (`message_id`, `timestamp`, `source_agent`, `target_agent`, `message_type`,
   `data`) as JSON into `shared/{input,processing,output,results}/`.
@@ -50,8 +74,11 @@ auditable final record for every transaction.
     `25–49` review, `<25` approved.
   - FX to USD: USD 1.00, EUR 1.08, GBP 1.27, JPY 0.0067, CHF 1.12, CAD 0.74,
     AUD 0.66, PLN 0.25, UAH 0.024. Fee 0.1%, min $0.01.
-  - Outcome oracle: approved {TXN001, TXN008}; review {TXN004};
-    flagged_review {TXN002, TXN003, TXN005}; rejected {TXN006, TXN007}.
+  - Sanctioned accounts: `ACC-9999`.
+  - Restricted jurisdictions: `KP`, `IR`, `SY`.
+  - Outcome oracle: approved {TXN001, TXN008}; review {};
+    flagged_review {TXN002, TXN005}; rejected {TXN003 (sanctioned destination),
+    TXN004 (restricted jurisdiction), TXN006, TXN007}.
 
 ## 4. Context
 
@@ -61,8 +88,11 @@ auditable final record for every transaction.
 
 ### Ending context
 - `common/{constants,money,messages}.py` — frozen contracts + helpers.
-- `agents/{transaction_validator,fraud_detector,settlement_processor}.py`.
-- `integrator.py` — orchestrator + oracle assertion.
+- `agents/{transaction_validator,fraud_detector,compliance_checker,settlement_processor}.py`.
+- `api_server.py` — FastAPI REST gateway with pipeline step config.
+- `integrator.py` — direct-call orchestrator + oracle assertion.
+- `integrator_api.py` — HTTP-based orchestrator (calls the REST API).
+- `demo.sh` — zero-manual-step demo script.
 - `mcp_server/server.py` + `mcp.json` — FastMCP server + MCP config.
 - `tests/` — per-agent unit tests + one integration test (≥ 90% coverage).
 - `.claude/commands/*.md`, `.claude/settings.json`, `.githooks/pre-push`.
@@ -73,22 +103,38 @@ auditable final record for every transaction.
 
 1. **Frozen contracts** → `common/constants.py`, `common/money.py`,
    `common/messages.py`. *Accept:* importable; `parse_amount`, `to_usd`,
-   `apply_fee` behave per contract; `mask_account('ACC-1001') == '****1001'`.
+   `apply_fee` behave per contract; `mask_account('ACC-1001') == '****1001'`;
+   `SANCTIONED_ACCOUNTS` and `RESTRICTED_COUNTRIES` importable.
 2. **Agent — Transaction Validator** → `agents/transaction_validator.py`.
    *Prompt:* validate required fields, `amount > 0` with ≤ 2 dp, currency in set;
    support `--dry-run`. *Accept:* TXN006 (XYZ) and TXN007 (negative) rejected.
 3. **Agent — Fraud Detector** → `agents/fraud_detector.py`. *Prompt:* additive
    scoring + decision bands per the frozen table. *Accept:* TXN003 → 50 →
    `flagged_review`; TXN004 → 35 → `review`.
-4. **Agent — Settlement Processor** → `agents/settlement_processor.py`.
+4. **Agent — Compliance Checker** → `agents/compliance_checker.py`. *Prompt:*
+   screen destination against sanctioned accounts set and metadata.country
+   against restricted jurisdictions; reject with reason if either fires;
+   pass through already-rejected transactions untouched. *Accept:* TXN003 →
+   rejected (sanctioned destination `ACC-9999`); TXN004 → rejected (restricted
+   jurisdiction `IR`); all others pass through unchanged.
+5. **Agent — Settlement Processor** → `agents/settlement_processor.py`.
    *Prompt:* FX-to-USD + 0.1% fee (ROUND_HALF_UP); `held` vs `settled` vs
-   `rejected`. *Accept:* 500 EUR → 540 USD, net 539.46; flagged → held.
-5. **Integrator** → `integrator.py`. *Prompt:* set up `shared/`, run the three
-   agents moving JSON messages, mask PII, write run summary. *Accept:* all 8 land
-   in `shared/results/` and the run reproduces the oracle.
-6. **MCP server** → `mcp_server/server.py` + `mcp.json`. *Prompt:* FastMCP with
+   `rejected`. *Accept:* 500 EUR → 540 USD, net 539.46;
+   flagged → held; rejected → not_settled.
+6. **Integrator** → `integrator.py` + `integrator_api.py`. *Prompt:* set up
+   `shared/`, run the four agents moving JSON messages, mask PII, write run
+   summary. Two modes: direct function calls (`integrator.py`) and HTTP via REST
+   API (`integrator_api.py`). *Accept:* all 8 land in `shared/results/` and the
+   run reproduces the oracle in both modes.
+7. **REST API gateway** → `api_server.py`. *Prompt:* FastAPI server with
+   configurable `PIPELINE_STEPS` list; `POST /pipeline` entry point; each step
+   at `POST /steps/{name}` calls the next step in the chain; short-circuits on
+   rejection; `GET /config` returns the step order. *Accept:* `./demo.sh` runs
+   end-to-end with zero manual steps, oracle passes.
+7. **MCP server** → `mcp_server/server.py` + `mcp.json`. *Prompt:* FastMCP with
    `get_transaction_status`, `list_pipeline_results`, resource
    `pipeline://summary`. *Accept:* both tools and the resource respond.
-7. **Test suite** → `tests/`. *Prompt:* per-agent unit tests (structuring,
-   near-threshold, bad currency, negative amount, FX rounding, masking) + one
-   integration test against the oracle. *Accept:* `pytest --cov` ≥ 90%.
+8. **Test suite** → `tests/`. *Prompt:* per-agent unit tests (structuring,
+   near-threshold, bad currency, negative amount, FX rounding, masking,
+   sanctioned account, restricted country) + one integration test against the
+   oracle. *Accept:* `pytest --cov` ≥ 90%.

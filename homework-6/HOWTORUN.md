@@ -13,7 +13,7 @@ python3.14 -m venv .venv        # or any python >= 3.12
 ## 2. Install dependencies
 
 ```bash
-./.venv/bin/python -m pip install pytest pytest-cov fastmcp
+./.venv/bin/python -m pip install pytest pytest-cov fastmcp fastapi uvicorn httpx
 # or, using the project metadata:
 ./.venv/bin/python -m pip install -e ".[dev]"
 ```
@@ -31,9 +31,9 @@ account numbers are masked to last 4 (`****1001`).
 ```bash
 ./.venv/bin/python integrator.py
 ```
-This resets `shared/`, runs validator → fraud → settlement, masks PII in logs,
-writes each final record to `shared/results/<txn>.json`, and asserts the
-**oracle** (prints `✅ Oracle check passed`).
+This resets `shared/`, runs validator → fraud → compliance → settlement, masks
+PII in logs, writes each final record to `shared/results/<txn>.json`, and
+asserts the **oracle** (prints `✅ Oracle check passed`).
 
 ## 5. Run the tests with coverage
 
@@ -81,7 +81,49 @@ Or run it directly over STDIO: `./.venv/bin/python -m mcp_server.server`.
 > `shared/results/` is populated.
 ```
 
-## 8. Fast mode — high-volume throughput (optional)
+## 8. REST API mode (two terminals)
+
+The pipeline is also exposed as a FastAPI REST service. Each agent is an HTTP
+endpoint; the chain calls forward step-by-step, stopping early on rejection.
+
+**Terminal 1 — start the API server:**
+```bash
+./.venv/bin/python -m uvicorn api_server:app --port 8000
+```
+
+**Terminal 2 — run the pipeline via HTTP:**
+```bash
+./.venv/bin/python integrator_api.py
+```
+
+Useful endpoints:
+- `GET  /config`             — pipeline step order
+- `POST /pipeline`           — submit a transaction (starts the chain)
+- `POST /steps/validator`    — call validator directly
+- `POST /steps/fraud`        — call fraud detector directly
+- `POST /steps/compliance`   — call compliance checker directly
+- `POST /steps/settlement`   — call settlement directly
+
+## 9. One-command demo (`demo.sh`)
+
+A single script that does everything automatically — no manual steps:
+
+```bash
+chmod +x demo.sh
+./demo.sh
+```
+
+It will:
+1. Install dependencies (if missing)
+2. Start the API server in the background
+3. Show the pipeline config
+4. Submit all 8 sample transactions via `POST /pipeline`
+5. Display a results table
+6. Query individual transaction results
+7. Run the test suite with coverage
+8. Shut down the server
+
+## 10. Fast mode — high-volume throughput (optional)
 
 The graded path (steps 4–5) uses the file-based `shared/` protocol — one JSON
 file per hop, ideal for auditing a handful of transactions. For large volumes,

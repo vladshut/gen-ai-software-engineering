@@ -31,14 +31,13 @@ def test_full_pipeline_matches_oracle(tmp_path):
     assert summary["total_transactions"] == 8
     assert summary["fraud_decision_counts"] == {
         "approved": 2,
-        "flagged_review": 3,
-        "review": 1,
-        "rejected": 2,
+        "flagged_review": 2,
+        "rejected": 4,
     }
     assert summary["settlement_status_counts"] == {
-        "settled": 3,
-        "held": 3,
-        "rejected": 2,
+        "settled": 2,
+        "held": 2,
+        "rejected": 4,
     }
 
 
