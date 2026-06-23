@@ -12,10 +12,11 @@
     --ink: #e8eef7;
     --muted: #9fb0c9;
     --line: #243450;
-    --mint: #4ade80;      /* settled / approved */
-    --amber: #fbbf24;     /* held / review */
-    --red: #f87171;       /* rejected */
-    --cyan: #38bdf8;      /* accents */
+    --mint: #4ade80;
+    --amber: #fbbf24;
+    --red: #f87171;
+    --cyan: #38bdf8;
+    --purple: #a78bfa;
     --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
     --sans: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   }
@@ -49,6 +50,8 @@
   h1 { font-size: clamp(2.4rem, 6vw, 4.6rem); line-height: 1.02; letter-spacing: -.02em; font-weight: 800; }
   h2 { font-size: clamp(1.7rem, 3.6vw, 2.7rem); line-height: 1.1; letter-spacing: -.015em; font-weight: 750; margin-bottom: 1.6rem; }
   h2 .accent { color: var(--mint); }
+  h2 .accent-cyan { color: var(--cyan); }
+  h2 .accent-purple { color: var(--purple); }
   p.lead { font-size: clamp(1.05rem, 1.7vw, 1.35rem); color: var(--muted); max-width: 60ch; line-height: 1.55; }
 
   ul.points { list-style: none; display: flex; flex-direction: column; gap: 1rem; max-width: 70ch; }
@@ -58,38 +61,37 @@
   code, .mono { font-family: var(--mono); }
   li code, p code, td code { background: #0d1730; border: 1px solid var(--line); padding: .05em .4em; border-radius: 5px; font-size: .9em; color: #bfe3ff; }
 
-  /* Title slide */
   .title-wrap { gap: 1.4rem; }
   .byline { display: flex; align-items: center; gap: .8rem; margin-top: 1.2rem; color: var(--muted); font-size: 1.05rem; }
   .byline .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 14px var(--mint); }
   .pill { display: inline-block; font-family: var(--mono); font-size: .72rem; letter-spacing: .15em; text-transform: uppercase;
           border: 1px solid var(--line); color: var(--muted); padding: .35em .8em; border-radius: 999px; }
 
-  /* Architecture pipeline */
-  .pipe { display: flex; flex-direction: column; gap: .55rem; align-items: center; margin-top: .5rem; }
+  .pipe { display: flex; flex-direction: column; gap: .45rem; align-items: center; margin-top: .5rem; }
   .node {
     width: min(560px, 80vw); background: linear-gradient(180deg, var(--panel), #121d33);
-    border: 1px solid var(--line); border-radius: 12px; padding: .85rem 1.2rem;
+    border: 1px solid var(--line); border-radius: 12px; padding: .75rem 1.2rem;
     display: flex; align-items: center; justify-content: space-between; gap: 1rem;
   }
-  .node .n-title { font-weight: 700; font-size: 1.05rem; }
-  .node .n-sub { font-family: var(--mono); font-size: .76rem; color: var(--muted); }
+  .node .n-title { font-weight: 700; font-size: 1rem; }
+  .node .n-sub { font-family: var(--mono); font-size: .72rem; color: var(--muted); }
   .node.head { border-color: var(--cyan); }
-  .node .tag { font-family: var(--mono); font-size: .72rem; padding: .2em .6em; border-radius: 6px; border: 1px solid var(--line); }
+  .node.purple { border-color: var(--purple); }
+  .node .tag { font-family: var(--mono); font-size: .7rem; padding: .2em .5em; border-radius: 6px; border: 1px solid var(--line); }
   .tag.mint { color: var(--mint); border-color: #1f5d3a; }
   .tag.amber { color: var(--amber); border-color: #6b531a; }
   .tag.red { color: var(--red); border-color: #6e2a2a; }
-  .arrow { color: var(--muted); font-family: var(--mono); font-size: .72rem; display: flex; flex-direction: column; align-items: center; }
-  .arrow .a { font-size: 1.1rem; color: var(--cyan); line-height: 1; }
+  .arrow { color: var(--muted); font-family: var(--mono); font-size: .68rem; display: flex; flex-direction: column; align-items: center; }
+  .arrow .a { font-size: 1rem; color: var(--cyan); line-height: 1; }
 
-  /* Tables */
   table { border-collapse: collapse; width: 100%; max-width: 860px; font-size: clamp(.85rem, 1.3vw, 1.05rem); margin-top: .4rem; }
-  th, td { text-align: left; padding: .7rem .9rem; border-bottom: 1px solid var(--line); }
+  th, td { text-align: left; padding: .6rem .9rem; border-bottom: 1px solid var(--line); }
   th { color: var(--cyan); font-family: var(--mono); font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; font-weight: 600; }
   td.mono, th.mono { font-family: var(--mono); }
   .b-mint { color: var(--mint); font-weight: 700; }
   .b-amber { color: var(--amber); font-weight: 700; }
   .b-red { color: var(--red); font-weight: 700; }
+  .b-purple { color: var(--purple); font-weight: 700; }
 
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2.4rem; align-items: start; }
   @media (max-width: 820px) { .two-col { grid-template-columns: 1fr; gap: 1.4rem; } .node { width: 92vw; } }
@@ -99,13 +101,15 @@
   .card.mint { border-left: 3px solid var(--mint); }
   .card.amber { border-left: 3px solid var(--amber); }
   .card.cyan { border-left: 3px solid var(--cyan); }
+  .card.purple { border-left: 3px solid var(--purple); }
+  .card.red { border-left: 3px solid var(--red); }
   .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
-  @media (max-width: 820px) { .grid3 { grid-template-columns: 1fr; } }
+  .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+  @media (max-width: 820px) { .grid3 { grid-template-columns: 1fr; } .grid4 { grid-template-columns: 1fr 1fr; } }
 
   .big-quote { font-size: clamp(1.4rem, 2.8vw, 2.2rem); line-height: 1.3; max-width: 24ch; font-weight: 700; }
   .big-quote .accent { color: var(--mint); }
 
-  /* chrome */
   .progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--mint), var(--cyan)); width: 0; transition: width .3s ease; z-index: 10; }
   .counter { position: fixed; bottom: 1.4rem; right: 1.8rem; font-family: var(--mono); font-size: .8rem; color: var(--muted); z-index: 10; }
   .counter b { color: var(--ink); }
@@ -113,7 +117,6 @@
   .dots { position: fixed; bottom: 1.4rem; left: 50%; transform: translateX(-50%); display: flex; gap: .5rem; z-index: 10; }
   .dots button { width: 9px; height: 9px; border-radius: 50%; border: none; background: var(--line); cursor: pointer; padding: 0; transition: all .2s; }
   .dots button.on { background: var(--mint); transform: scale(1.25); }
-  .nav { position: fixed; bottom: 1.1rem; right: 50%; }
   .hint { position: fixed; top: 1.2rem; right: 1.8rem; font-family: var(--mono); font-size: .72rem; color: #5b6c88; z-index: 10; }
 </style>
 </head>
@@ -126,10 +129,11 @@
   <!-- 1: Title -->
   <section class="slide active title-wrap">
     <span class="pill">Homework 6 · Capstone</span>
-    <div class="kicker">Multi-agent · Deterministic · Auditable</div>
+    <div class="kicker">Multi-agent · Deterministic · REST API · Auditable</div>
     <h1>Banking Transaction<br>Pipeline</h1>
-    <p class="lead">A multi-agent system that ingests raw transactions and runs them through
-      validation → fraud scoring → settlement, producing an auditable final record for every transaction.</p>
+    <p class="lead">A four-agent deterministic system that validates, scores fraud, screens
+      compliance, and settles transactions — exposed as a configurable REST API chain
+      with a file-based audit trail.</p>
     <div class="byline"><span class="dot"></span> Created by <b>&nbsp;Vladyslav Shut</b></div>
   </section>
 
@@ -140,8 +144,9 @@
     <ul class="points">
       <li>Loads raw transactions from <code>sample-transactions.json</code>.</li>
       <li><b>Validates</b> structure, amount (<code>Decimal &gt; 0</code>, ≤ 2 dp), and ISO-4217 currency.</li>
-      <li><b>Scores fraud</b> with a fixed additive model → a decision band.</li>
-      <li><b>Settles</b> approved/review (FX → USD + 0.1% fee), holds flagged, leaves rejected.</li>
+      <li><b>Scores fraud</b> with a fixed additive model → decision band.</li>
+      <li><b>Screens compliance</b> — sanctions list + restricted jurisdictions.</li>
+      <li><b>Settles</b> approved/review (FX → USD + 0.1% fee), holds flagged, rejects the rest.</li>
       <li>Writes a final record per transaction and asserts a known <b>outcome oracle</b>.</li>
     </ul>
   </section>
@@ -149,17 +154,18 @@
   <!-- 3: Architecture -->
   <section class="slide">
     <div class="kicker">Architecture</div>
-    <h2>Three cooperating agents over a <span class="accent">file-based</span> protocol</h2>
+    <h2>Four agents over a <span class="accent">configurable chain</span></h2>
     <div class="pipe">
-      <div class="node head"><span class="n-title">Integrator</span><span class="n-sub">orchestrator · PII masking · oracle</span></div>
+      <div class="node head"><span class="n-title">Integrator / POST /pipeline</span><span class="n-sub">orchestrator · PII masking · oracle</span></div>
       <div class="arrow"><span class="a">↓</span><span>shared/input/</span></div>
-      <div class="node"><span class="n-title">Transaction Validator</span><span class="tag red">→ rejected</span></div>
+      <div class="node"><span class="n-title">1. Transaction Validator</span><span class="tag red">→ rejected</span></div>
       <div class="arrow"><span class="a">↓</span><span>shared/processing/</span></div>
-      <div class="node"><span class="n-title">Fraud Detector</span><span class="n-sub">approved · review · flagged</span></div>
+      <div class="node"><span class="n-title">2. Fraud Detector</span><span class="n-sub">approved · review · flagged</span></div>
       <div class="arrow"><span class="a">↓</span><span>shared/output/</span></div>
-      <div class="node"><span class="n-title">Settlement Processor</span><span class="n-sub"><span class="tag mint">settled</span> <span class="tag amber">held</span> <span class="tag red">rejected</span></span></div>
+      <div class="node purple"><span class="n-title">3. Compliance Checker</span><span class="tag red">→ rejected</span></div>
+      <div class="arrow"><span class="a">↓</span><span></span></div>
+      <div class="node"><span class="n-title">4. Settlement Processor</span><span class="n-sub"><span class="tag mint">settled</span> <span class="tag amber">held</span> <span class="tag red">rejected</span></span></div>
       <div class="arrow"><span class="a">↓</span><span>shared/results/&lt;txn&gt;.json</span></div>
-      <div class="node head"><span class="n-title">FastMCP: pipeline-status</span><span class="n-sub">query results · summary</span></div>
     </div>
   </section>
 
@@ -169,13 +175,14 @@
     <h2>Transaction <span class="accent">Validator</span></h2>
     <div class="two-col">
       <ul class="points">
-        <li>Enforces the required-field, amount, and currency contract.</li>
+        <li>Enforces required fields, amount, and currency contract.</li>
         <li>Amount must parse as <code>Decimal &gt; 0</code> with ≤ 2 decimal places.</li>
         <li>Currency must be in the accepted ISO-4217 set.</li>
         <li>Rejections carry a <code>rejection_reason</code>.</li>
+        <li>If rejected → chain <b>stops immediately</b>.</li>
       </ul>
       <div class="card cyan">
-        <h3>Rejects, e.g.</h3>
+        <h3>Rejects</h3>
         <ul class="points" style="gap:.6rem">
           <li><code>TXN006</code> — currency <code>XYZ</code></li>
           <li><code>TXN007</code> — negative amount</li>
@@ -211,9 +218,31 @@
     </div>
   </section>
 
-  <!-- 6: Settlement -->
+  <!-- 6: Compliance Checker -->
   <section class="slide">
-    <div class="kicker">Agent 3</div>
+    <div class="kicker">Agent 3 · New</div>
+    <h2>Compliance <span class="accent-purple">Checker</span></h2>
+    <div class="two-col">
+      <ul class="points">
+        <li><b>Sanctions screening</b> — destination account checked against a frozen sanctioned set.</li>
+        <li><b>Restricted jurisdictions</b> — metadata.country checked against blocked countries (<code>KP</code>, <code>IR</code>, <code>SY</code>).</li>
+        <li>Already-rejected transactions pass through untouched.</li>
+        <li>If either check fires → <code>status = "rejected"</code> with reason.</li>
+        <li>Chain <b>stops immediately</b> on rejection.</li>
+      </ul>
+      <div class="card purple">
+        <h3>Catches in sample data</h3>
+        <ul class="points" style="gap:.6rem">
+          <li><code>TXN003</code> → <span class="b-red">rejected</span><br><small>sanctioned destination: ACC-9999</small></li>
+          <li><code>TXN004</code> → <span class="b-red">rejected</span><br><small>restricted jurisdiction: IR</small></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7: Settlement -->
+  <section class="slide">
+    <div class="kicker">Agent 4</div>
     <h2>Settlement <span class="accent">Processor</span></h2>
     <div class="two-col">
       <ul class="points">
@@ -221,6 +250,7 @@
         <li><b>flagged_review</b> → <span class="b-amber">held</span> (not settled).</li>
         <li><b>rejected</b> → stays <span class="b-red">rejected</span>.</li>
         <li>Records <code>fx_rate</code>, <code>amount_usd</code>, <code>fee_usd</code>, <code>net_usd</code>.</li>
+        <li>Terminal step — always writes the final record.</li>
       </ul>
       <div class="card mint">
         <h3>Money handling</h3>
@@ -233,32 +263,87 @@
     </div>
   </section>
 
-  <!-- 7: Protocol & contracts -->
+  <!-- 8: REST API -->
   <section class="slide">
-    <div class="kicker">Implementation</div>
-    <h2>Contracts that keep it <span class="accent">auditable</span></h2>
-    <div class="grid3">
-      <div class="card"><h3>Message envelope</h3><p class="lead" style="font-size:.98rem">Every hop serializes a JSON <code>Message</code>: <code>message_id</code>, <code>timestamp</code>, <code>source_agent</code>, <code>target_agent</code>, <code>data</code>.</p></div>
-      <div class="card"><h3>PII masking</h3><p class="lead" style="font-size:.98rem">Account numbers never logged in plaintext — masked to last 4 (<code>****1001</code>) everywhere.</p></div>
-      <div class="card"><h3>Frozen contracts</h3><p class="lead" style="font-size:.98rem">Currencies, fraud weights, FX rates, and the oracle live in <code>common/constants.py</code> — one source of truth.</p></div>
+    <div class="kicker">REST API Gateway</div>
+    <h2>Pipeline as <span class="accent-cyan">HTTP endpoints</span></h2>
+    <div class="two-col">
+      <div>
+        <table>
+          <tr><th>Method</th><th>Endpoint</th><th>Role</th></tr>
+          <tr><td class="mono">GET</td><td class="mono">/config</td><td>Pipeline step order</td></tr>
+          <tr><td class="mono">POST</td><td class="mono">/pipeline</td><td>Entry point (starts chain)</td></tr>
+          <tr><td class="mono">POST</td><td class="mono">/steps/validator</td><td>Validation</td></tr>
+          <tr><td class="mono">POST</td><td class="mono">/steps/fraud</td><td>Fraud scoring</td></tr>
+          <tr><td class="mono">POST</td><td class="mono">/steps/compliance</td><td>Compliance</td></tr>
+          <tr><td class="mono">POST</td><td class="mono">/steps/settlement</td><td>Settlement (terminal)</td></tr>
+        </table>
+      </div>
+      <div class="card cyan">
+        <h3>Chain behaviour</h3>
+        <ul class="points" style="gap:.6rem">
+          <li><code>/pipeline</code> calls step 0</li>
+          <li>Each step calls the <b>next</b> via HTTP</li>
+          <li>Rejection → chain <b>stops</b>, result written</li>
+          <li>Settlement always writes final record</li>
+        </ul>
+      </div>
     </div>
   </section>
 
-  <!-- 8: Oracle -->
+  <!-- 9: Pipeline Config -->
+  <section class="slide">
+    <div class="kicker">Configurable</div>
+    <h2>Pipeline step <span class="accent">config</span></h2>
+    <div class="two-col">
+      <div class="card" style="font-family:var(--mono); font-size:.95rem; line-height:1.8; white-space:pre; color:#bfe3ff;">PIPELINE_STEPS = [
+  {"name": "validator",  "path": "/steps/validator"},
+  {"name": "fraud",      "path": "/steps/fraud"},
+  {"name": "compliance", "path": "/steps/compliance"},
+  {"name": "settlement", "path": "/steps/settlement"},
+]</div>
+      <ul class="points">
+        <li>Step order is a <b>single list</b> in <code>api_server.py</code>.</li>
+        <li>To reorder or add steps — edit the list.</li>
+        <li>Settlement must remain the <b>terminal step</b>.</li>
+        <li><code>GET /config</code> returns the current order at runtime.</li>
+        <li>Each step is independent — easy to add new agents.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 10: Oracle -->
   <section class="slide">
     <div class="kicker">Correctness</div>
-    <h2>The outcome <span class="accent">oracle</span> — 8 sample transactions</h2>
+    <h2>Updated outcome <span class="accent">oracle</span></h2>
     <table>
       <tr><th>Decision</th><th>Transactions</th><th>After settlement</th></tr>
       <tr><td class="b-mint">approved</td><td class="mono">TXN001, TXN008</td><td class="b-mint">settled</td></tr>
-      <tr><td class="b-amber">review</td><td class="mono">TXN004</td><td class="b-mint">settled</td></tr>
-      <tr><td class="b-amber">flagged_review</td><td class="mono">TXN002, TXN003, TXN005</td><td class="b-amber">held</td></tr>
-      <tr><td class="b-red">rejected</td><td class="mono">TXN006 (XYZ), TXN007 (negative)</td><td class="b-red">rejected</td></tr>
+      <tr><td class="b-amber">flagged_review</td><td class="mono">TXN002, TXN005</td><td class="b-amber">held</td></tr>
+      <tr><td class="b-red">rejected (validator)</td><td class="mono">TXN006 (XYZ), TXN007 (negative)</td><td class="b-red">rejected</td></tr>
+      <tr><td class="b-purple">rejected (compliance)</td><td class="mono">TXN003 (sanctions), TXN004 (jurisdiction)</td><td class="b-red">rejected</td></tr>
     </table>
-    <p class="lead" style="margin-top:1.2rem">Every run asserts this oracle — <b>all 8 decisions match</b>, or the pipeline fails loudly.</p>
+    <p class="lead" style="margin-top:1.2rem">Every run asserts this oracle — both in direct-call and API mode.</p>
   </section>
 
-  <!-- 9: Why deterministic -->
+  <!-- 11: Demo script -->
+  <section class="slide">
+    <div class="kicker">Demo</div>
+    <h2>Zero-step demo: <span class="accent">./demo.sh</span></h2>
+    <ul class="points">
+      <li>Installs dependencies (if missing)</li>
+      <li>Starts the FastAPI server in background</li>
+      <li>Shows <code>GET /config</code> — the pipeline step order</li>
+      <li>Submits all 8 transactions via <code>POST /pipeline</code></li>
+      <li>Displays a results table with statuses and reasons</li>
+      <li>Queries individual results from <code>shared/results/</code></li>
+      <li>Runs the test suite with coverage</li>
+      <li>Shuts down the server automatically</li>
+    </ul>
+    <p class="lead" style="margin-top:1.2rem"><code>chmod +x demo.sh && ./demo.sh</code> — that's it.</p>
+  </section>
+
+  <!-- 12: Why deterministic -->
   <section class="slide">
     <div class="kicker">Design decision</div>
     <h2>Why <span class="accent">deterministic</span> agents — no LLMs</h2>
@@ -273,7 +358,7 @@
     </div>
   </section>
 
-  <!-- 10: Tooling -->
+  <!-- 13: Tooling -->
   <section class="slide">
     <div class="kicker">Automation</div>
     <h2>Skills, hooks &amp; <span class="accent">MCP</span></h2>
@@ -284,48 +369,35 @@
     </div>
   </section>
 
-  <!-- 11: Testing -->
+  <!-- 14: Testing -->
   <section class="slide">
     <div class="kicker">Quality</div>
     <h2>Tested &amp; <span class="accent">gated</span></h2>
     <div class="two-col">
       <ul class="points">
-        <li><b>48 tests</b> — unit per agent + a full-pipeline integration test.</li>
+        <li><b>58 tests</b> — unit per agent (incl. compliance) + integration.</li>
         <li><b>97% coverage</b> — well above the 80% gate.</li>
         <li>Tests isolate from real <code>shared/</code> via <code>tmp_path</code>.</li>
         <li>The gate blocks pushes below threshold — proven live.</li>
       </ul>
       <div class="card mint">
         <h3 class="mono" style="font-size:2.4rem;color:var(--mint)">97%</h3>
-        <p class="lead" style="font-size:1rem">line + branch coverage · 48 passing</p>
+        <p class="lead" style="font-size:1rem">line + branch coverage · 58 passing</p>
       </div>
     </div>
   </section>
 
-  <!-- 12: Scaling -->
-  <section class="slide">
-    <div class="kicker">Scaling · bonus</div>
-    <h2>High-volume <span class="accent">--fast</span> mode</h2>
-    <p class="lead" style="margin-bottom:1.2rem">Same deterministic agents, stream JSONL instead of per-transaction files. The win is dropping I/O, not adding intelligence.</p>
-    <table>
-      <tr><th>Mode</th><th class="mono">Throughput</th><th>vs file-based</th></tr>
-      <tr><td>File-based, sequential (graded path)</td><td class="mono">~2,300/s</td><td class="mono">1×</td></tr>
-      <tr><td><code>--fast</code> (single process, default)</td><td class="mono b-mint">~115,000/s</td><td class="mono b-mint">~40–50×</td></tr>
-      <tr><td><code>--fast --workers 7</code></td><td class="mono">~140,000/s</td><td class="mono">~50–60×</td></tr>
-    </table>
-    <p class="lead" style="margin-top:1rem;font-size:1rem">Output is byte-identical regardless of worker count — pure functions over independent transactions.</p>
-  </section>
-
-  <!-- 13: Close -->
+  <!-- 15: Tech Stack -->
   <section class="slide title-wrap">
     <div class="kicker">Tech stack</div>
     <h2>Built with</h2>
     <table style="max-width:680px">
       <tr><td>Language</td><td class="mono">Python 3.12+</td></tr>
       <tr><td>Money</td><td class="mono">decimal.Decimal · ROUND_HALF_UP</td></tr>
+      <tr><td>REST API</td><td class="mono">FastAPI + uvicorn + httpx</td></tr>
       <tr><td>MCP server</td><td class="mono">fastmcp (2 tools + 1 resource)</td></tr>
       <tr><td>Tests</td><td class="mono">pytest · pytest-cov (97%)</td></tr>
-      <tr><td>Transport</td><td class="mono">file-based JSON Message envelopes</td></tr>
+      <tr><td>Transport</td><td class="mono">HTTP chain + file-based JSON audit trail</td></tr>
     </table>
     <div class="byline" style="margin-top:2rem"><span class="dot"></span> Banking Transaction Pipeline · <b>&nbsp;Vladyslav Shut</b></div>
   </section>
@@ -333,7 +405,7 @@
 </div>
 
 <div class="brand">banking-pipeline</div>
-<div class="counter"><b id="cur">1</b> / <span id="total">13</span></div>
+<div class="counter"><b id="cur">1</b> / <span id="total">15</span></div>
 <div class="dots" id="dots"></div>
 
 <script>
@@ -369,7 +441,6 @@
     else if (e.key === 'Home') go(0);
     else if (e.key === 'End') go(total - 1);
   });
-  // click right/left half to navigate (ignore clicks on dots/links)
   document.getElementById('deck').addEventListener('click', (e) => {
     if (e.target.closest('button, a')) return;
     (e.clientX > window.innerWidth / 2) ? next() : prev();

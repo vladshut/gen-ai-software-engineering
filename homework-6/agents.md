@@ -89,3 +89,57 @@ calls). They communicate only by reading/writing JSON `Message` envelopes in
 - Writes `shared/results/_run_summary.json` (fraud-decision counts, compliance
   outcomes, settlement counts, settled USD total, per-transaction outcomes).
 - Asserts the run reproduces the build-plan **oracle**.
+
+---
+
+## REST API Gateway (`api_server.py`)
+
+The pipeline is also exposed as a **FastAPI REST service**. Each agent is an
+HTTP endpoint; a configurable step list defines execution order.
+
+### Pipeline step config
+
+```python
+PIPELINE_STEPS = [
+    {"name": "validator",  "path": "/steps/validator"},
+    {"name": "fraud",      "path": "/steps/fraud"},
+    {"name": "compliance", "path": "/steps/compliance"},
+    {"name": "settlement", "path": "/steps/settlement"},
+]
+```
+
+To reorder or add steps, edit this list. Settlement must remain the terminal
+step (it writes the final record).
+
+### Endpoints
+
+| Method | Path | Description |
+|--------|------|-------------|
+| `GET` | `/config` | Returns the current pipeline step order |
+| `POST` | `/pipeline` | Entry point — starts the chain at step 0 |
+| `POST` | `/steps/validator` | Transaction validation |
+| `POST` | `/steps/fraud` | Fraud scoring |
+| `POST` | `/steps/compliance` | Compliance screening |
+| `POST` | `/steps/settlement` | Settlement (terminal, writes result) |
+
+### Chain behaviour
+
+1. `POST /pipeline` receives a transaction and calls step 0 (`/steps/validator`).
+2. Each step processes the transaction. If `status = "rejected"`, the chain
+   **stops immediately** — settlement produces the final record, which is
+   written to `shared/results/`, and the response flows back.
+3. If the step does not reject, it calls the **next step** in `PIPELINE_STEPS`
+   via HTTP.
+4. Settlement (the terminal step) always writes the final record to
+   `shared/results/<txn>.json`.
+
+### API-mode integrator (`integrator_api.py`)
+
+- POSTs each transaction to `POST /pipeline` via HTTP.
+- Collects results, masks PII in logs, writes the run summary, and asserts the
+  oracle — same as the direct-call integrator but over the network.
+
+### Demo script (`demo.sh`)
+
+A single `./demo.sh` runs the full demo with zero manual steps: starts the
+server, submits transactions, displays results, runs tests, shuts down.
